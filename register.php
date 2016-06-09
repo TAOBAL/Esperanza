@@ -1,64 +1,3 @@
-
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "august17";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password,"esperanza");
-
-// Check connection
-if (mysqli_connect_error()) {
-    die("Database connection failed: " . mysqli_connect_error());
-};
-$fname = $lname  = $gender = $email = $password = $cpassword = "";
-$fnameErr = $lnameErr  = $genderErr = $emailErr = $passwordErr = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["name"])) {
-        $fnameErr = "first name is required";
-    }else if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-        $fnameErr = "Only letters and white space allowed";
-    }
-    else {
-        $fname = test_input($_POST["fname"]);
-    }
-    if (empty($_POST["name"])) {
-        $lnameErr = "last name is required";
-    }else if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-        $lnameErr = "Only letters and white space allowed";
-    }
-    else {
-        $lname = test_input($_POST["lname"]);
-    }
-    if (empty($_POST["gender"])) {
-        $genderErr = "Gender is required";
-    } else {
-        $gender = test_input($_POST["gender"]);
-    }
-    if (empty($_POST["email"])) {
-        $emailErr = "Email is required";
-    }else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $emailErr = "Invalid email @ and . is required";
-    }
-    else {
-        $email = test_input($_POST["email"]);
-    }
-    if ($password !== $cpassword){
-        $passwordErr = "password mismatch";
-    }else{
-        $password = test_input($_POST["password"]);
-    }
-
-}
-function test_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
-?>
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -68,7 +7,7 @@ function test_input($data) {
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="css/home.css" rel="stylesheet" type="text/css" />
+    <!--<link href="css/home.css" rel="stylesheet" type="text/css" />-->
     <!--- start-mmmenu-script---->
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />

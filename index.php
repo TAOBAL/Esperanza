@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -299,7 +298,7 @@
                 <div class="clear"></div>
             </div>
             <div class="top_main">
-                <h2>best sellers of the month</h2>
+                <h2>Trending</h2>
                 <a href="collection.php">show all</a>
                 <div class="clear"></div>
             </div>

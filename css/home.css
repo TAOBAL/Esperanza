@@ -41,3 +41,93 @@
 .error{
     color: red;
 }
+.regSucc{
+    border: solid 1px #57C5A0;
+    margin-top: -10px;
+    padding: 5px;
+
+}.menu{
+    margin-left: -150px;
+    font-size: 15px;
+ }
+.menu li a{
+    text-decoration: none;
+}
+.top_bg{
+    margin-top: -10px;
+    height: 50px;
+}
+.bodyme a{
+    text-decoration: none;
+}
+.sideyB{
+    margin-top: 20px;
+    margin-left: -70px;
+}
+
+.sideyB h2{
+    margin-top: 0;
+}
+.sidey ul {
+    list-style-type: none;
+    margin: 30px 0 30px 30px;
+    width: 200px;
+    border-right: solid 1px #57C5A0;
+    background-color: #ffffff;
+}
+
+.sidey li a {
+    display: block;
+    color: #000;
+    letter-spacing: 1px;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+.sidey li a:hover {
+    background-color: #57C5A0;
+    color: white;
+}
+.accDet{
+    border-top: solid 2px #d8d8d8;
+    background-color: #f2f2f2;
+    color: #57C5A0;
+    padding: 5px;
+
+}
+.btn2{
+    background-color: #f2f2f2;
+    border: none;
+
+
+    color: #57C5A0;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+.btnMain{
+    background-color: #57C5A0;
+    border-radius:4px ;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 100px;
+    margin-top: 30px;
+}
+.btnMain2{
+    background-color: #f2f2f2;
+    border-radius:4px ;
+    color: #57C5A0;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+
+}
+.plus{
+    margin-top: 20px;
+}
