@@ -143,16 +143,20 @@
                 <input type="text" value="php" class="form-control"><br><br>
                 <label>Address</label><br><br>
                 <label>Street Address</label>
-                <input type="text" value="" class="form-control" required=""><br><br>
+                <input type="text" value="" class="form-control" required=""><br>
                 <label>Work or School address</label>
-                <input type="text" value="" class="form-control"><br><br>
+                <input type="text" value="" class="form-control"><br>
                 <label>City</label>
-                <input type="text" value="php" class="form-control"><br><br>
-                <label>State</label>
-                <select class="form-control">
-                <option>Please Select your State</option>
-                <option></option>
-                </select>
+                <input type="text" value="php" class="form-control"><br>
+
+                <label>Select Country</label>
+                <select class="form-control" id="country" name ="country"></select><br>
+                <label>Select State</label>
+                <select class="form-control" name ="state" id ="state"></select><br>
+                <script language="javascript">
+                    populateCountries("country", "state");
+                </script>
+
                 <label>Local Govt. Area</label>
                 <select class="form-control">
                     <option>Choose Area</option>
@@ -165,8 +169,8 @@
         </div>
     </form>
 </div>
-
-
-
 </div>
+<script src="js/country.js" type="text/javascript"></script>
+</body>
+</html>
 

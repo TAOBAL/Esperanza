@@ -130,23 +130,9 @@
         </ul>
     </div>
     <div class="col-md-8 sideyB">
-        <!--        <div class="regSucc">Welcome  /*echo $fname*/ you have successfully registered!</div>
-        -->        <h2>My Order</h2>
-        <ul class="ei-slider-thumbs">
-            <li class="ei-slider-element">Current</li>
-            <li>
-                <a href="#">
-                    <span class="active">pink shoes</span>
-                    <p>now of #6000 <br>16.5% off</p>
-                </a>
-                <img src="images/thumbs/1.jpg" alt="thumb01" />
-            </li>
-            <li class="hide"><a href="#"><span>anns field</span><p>now of #6000 <br>16.5% off</p> </a><img src="images/thumbs/2.jpg" alt="thumb01" /></li>
-            <li  class="hide1"><a href="#"><span>prada</span><p>now of #5000 <br>20% off</p></a><img src="images/thumbs/3.jpg" alt="thumb02" /></li>
-            <li class="hide1"><a href="#"><span>casa devi</span><p>now of #6000 <br>16% off</p></a><img src="images/thumbs/4.jpg" alt="thumb03" /></li>
-            <li><a href="#"><span>mellow yellow</span><p>now of #7000 <br>15% off</p> </a><img src="images/thumbs/1.jpg" alt="thumb04" /></li>
-            <li><a href="#"><span>anns field</span><p>now of #5000 <br>12% off</p> </a><img src="images/thumbs/5.jpg" alt="thumb05" /></li>
-            <li><a href="#"><span>anns field</span><p>now of #7000 <br>18% off</p></a><img src="images/thumbs/3.jpg" alt="thumb07" /></li>
-        </ul><!-- ei-slider-thumbs -->
-</div>
+              <h2>My Orders</h2><br>
+        <div class="regSucc"> you currently have no order yet!</div>
+
+
+    </div>
 
