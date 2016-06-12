@@ -1,19 +1,5 @@
 <?php
-include_once ('php/validate.php');
-$getUser = $myvalidate->userSession();
-$getUserArray = array();
-$getUserArray = $myvalidate->getUserProfile($getUser);
-$updateArray = array();
-$address1 = $address2 = $city = $country = $state = $lga = "";
-if(!empty($_POST['save_changes']) && isset($_POST['save_changes'])){
-    $address1 = $_POST['address1'];
-    $address2 = $_POST['address2'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
-    $state = $_POST['state'];
-    $lga = $_POST['lga'];
-    $updateArray = $myvalidate->updateaddress($getUser,$address1, $address2, $city, $country, $state, $lga);
-}
+include_once ('php/validate2.php');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -164,16 +150,16 @@ if(!empty($_POST['save_changes']) && isset($_POST['save_changes'])){
                 ?>
                 <label>Address</label><br><br>
                 <label>Street Address</label>
-                <input type="text" value="" class="form-control" name="address1" value="<?php echo $address1;?>" required=""><br>
+                <input type="text" class="form-control" name="address1" value="<?php echo $address1;?>" required=""><br>
                 <label>Work or School address</label>
-                <input type="text" value="" name="address2" value="<?php echo $address2;?>" class="form-control"><br>
+                <input type="text" name="address2" value="<?php echo $address2;?>" class="form-control"><br>
                 <label>City</label>
-                <input type="text" value="php" name="city" value="<?php echo $city;?>" class="form-control"><br>
+                <input type="text" name="city" value="<?php echo $city;?>" class="form-control"><br>
 
                 <label>Select Country</label>
                 <select class="form-control" id="country" value="<?php echo $country;?>" name ="country"></select><br>
                 <label>Select State</label>
-                <select class="form-control" name ="state" id ="state"></select><br>
+                <select class="form-control" name ="state" id ="state" value="<?php echo $state;?>"></select><br>
                 <script language="javascript">
                     populateCountries("country", "state");
                 </script>
