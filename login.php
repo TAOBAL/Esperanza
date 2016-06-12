@@ -1,4 +1,6 @@
-
+<?php
+include_once ('php/validate.php');
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -108,7 +110,7 @@
                 <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping address, view and track your orders in your accoung and more.</p>
                 <div class="btn">
                     <form>
-                        <input type="button"  onclick="location.href='register.html';" style="background-color: #57C5A0;border: 1px solid #57C5A0" value="create an account" />
+                        <input type="button"  onclick="location.href='register.php';" style="background-color: #57C5A0;border: 1px solid #57C5A0" value="create an account" />
                     </form>
                 </div>
             </div>
@@ -165,19 +167,24 @@
                     <div class="registration_left">
                         <div class="registration_form">
                             <!-- Form -->
-                            <form id="registration_form" action="contact.php" method="post">
+                            <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                                 <div>
                                     <label>
-                                        <input placeholder="email:" type="email" tabindex="3" required="">
+                                        <input placeholder="email:" type="email" name="lemail" value="<?php echo $lemail;?>" tabindex="3" required="">
                                     </label>
                                 </div>
                                 <div>
                                     <label>
-                                        <input placeholder="password" type="password" tabindex="4" required="">
+                                        <input placeholder="password" type="password" name="lpassword" value="<?php echo $lpassword;?>" tabindex="4" required="">
                                     </label>
                                 </div>
                                 <div>
-                                    <input type="submit" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                    <input type="submit" name="login" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                    <?php
+                                        for($i=0; $i<count($logarray); $i++){
+                                            echo $logarray[$i];
+                                        }
+                                    ?>
                                 </div>
                                 <div class="forget">
                                     <a href="#" style="text-decoration: none">forgot your password</a>
