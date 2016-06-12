@@ -1,3 +1,17 @@
+<?php
+include_once ('php/validate.php');
+$getUser = $myvalidate->userSession();
+$user_id = $myvalidate->getUserId($getUser);
+$getUserArray = $profileArray = array();
+$getUserArray = $myvalidate->getUserProfile($getUser);
+$fname = $lname = $phone = "";
+if(!empty($_POST['save_profile']) && isset($_POST['save_profile'])){
+    $fname = $_POST['First_Name'];
+    $lname = $_POST['Last_Name'];
+    $phone = $_POST['Phone_Number'];
+    $profileArray = $myvalidate->updateProfile($user_id, $fname, $lname, $phone);
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -44,8 +58,13 @@
             });
         });
     </script>
+    <script>
+        function check(){
+            document.getElementById('E-mail').disabled= true;
+        }
+    </script>
 </head>
-<body style="overflow-x: hidden">
+<body style="overflow-x: hidden" onload="check();">
 <!-- start header -->
 <div class="top_bg" style="height: 70px">
     <div class="wrap">
@@ -55,9 +74,9 @@
             </div>
             <div class="log_reg">
                 <ul>
-                    <li><a href="login.php" style="color: #57C5A0;text-decoration: none">Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php" style="color: #57C5A0;text-decoration: none">Register</a> </li>
+                    <li><a href="profile.php" style="color: #57C5A0;text-decoration: none"><?php echo $getUser;?></a> </li>
+                    <span class="log"> </span
+                    <li><a href="php/logout.php" style="color: #57C5A0;text-decoration: none">Logout</a> </li>
                     <div class="clear"></div>
                 </ul>
             </div>
@@ -135,18 +154,20 @@
         <div class="accDet">ACCOUNT INFORMATION</div><br>
         <div class="col-md-2"><span style="font-size: 70px" class="fa fa-user"></span></div>
         <div class="col-md-5">
-            <form method="post">
-                <label>First name</label>
-                <input type="text" value="php" class="form-control"><br>
-                <label>Last Name</label>
-                <input type="text" value="php" class="form-control"><br>
-                <label>E-mail</label>
-                <input type="email" value="php" class="form-control"><br>
-                <label>Phone Number</label>
-                <input type="text" value="php" class="form-control"><br><br>
-                <label></label>
+            <?php
+            for($i=0; $i<count($profileArray); $i++){
+                echo $profileArray[$i];
+            }
+            ?>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <?php
+                foreach ($getUserArray as $x=>$x_value){
+                        $fieldName = $myvalidate->getField($x);
+                    echo "<label>$fieldName</label><input type='text' id='$x' name='$x' value='$x_value' class='form-control'><br>";
+                }
+                ?>
+                <br><label></label>
                 <a href="#"  class="btn2" style="text-decoration: none">Change Password</a><br><br>
-            </form>
         </div>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <div class="accDet">DELIVERY ADDRESS</div><br>
@@ -159,9 +180,8 @@
             </div>
         </div>
     </div><br><br>
-    <form>
         <div class="col-md-offset-8 col-md-3">
-            <input type="submit" value="Save Changes" class="btnMain"><br><br>
+            <input type="submit" value="Save Changes" name="save_profile" class="btnMain"><br><br>
         </div>
     </form>
 </div>
