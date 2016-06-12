@@ -62,7 +62,6 @@ class validate{
     }
 
     function userSession(){
-        session_start();
         if(!isset($_SESSION['email'])){
             header('location:index.php');
         }else{
@@ -114,7 +113,7 @@ class validate{
     }
     function updateaddress($useremail, $strAdd, $wkAdd, $city, $country, $state, $lga){
         if(empty($strAdd) || empty($wkAdd) || empty($city) || empty($country) || empty($state) || empty($lga)){
-            $this->responseArray = array("Address field is required");
+            $this->responseArray = array("All address fields are required");
         }else{
             $query = $this->link->prepare("UPDATE users SET street_address='$strAdd', work_sch_address='$wkAdd', city='$city', country='$country', state='$state', local_govt='$lga' WHERE email='$useremail'");
             $query->execute();
@@ -156,7 +155,7 @@ class validate{
         if(empty($name) || empty($email) || empty($mobile) || empty($subject)){
             $this->responseArray = array("All fields are required");
         }else {
-            $query = $this->link->prepare("INSERT INTO contact_us(name, email, phone, subject) VALUES (?,?,?,?)");
+            $query = $this->link->prepare("INSERT INTO contact_us(fullname, email, phone, subject) VALUES (?,?,?,?)");
             $values = array($name, $email, $mobile, $subject);
             $result = $query->execute($values);
             if ($result) {
@@ -190,4 +189,16 @@ if(!empty($_POST['login']) && isset($_POST['login'])){
     
     $logarray = $myvalidate->loginUsers($lemail, $lpassword);
 }
+$getUserArray = array();
+$getDisplay = $myvalidate->blogDisplay();
+$conatctArray = array();
+$userName = $userEmail = $userPhone = $userMsg = "";
+if(!empty($_POST['contact']) && isset($_POST['contact'])){
+    $userName = $_POST['userName'];
+    $userEmail = $_POST['userEmail'];
+    $userPhone = $_POST['userPhone'];
+    $userMsg = $_POST['userMsg'];
+    $conatctArray = $myvalidate->contact_us($userName, $userEmail, $userPhone, $userMsg);
+}
+
 ?>
