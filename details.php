@@ -1,6 +1,5 @@
 <?php
 include_once ('php/validate.php');
-$getDisplay = $myvalidate->blogDisplay();
 ?>
 <!DOCTYPE HTML>
 <html>
