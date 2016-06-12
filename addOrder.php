@@ -1,3 +1,20 @@
+<?php
+include_once ('php/validate.php');
+$getUser = $myvalidate->userSession();
+$getUserArray = array();
+$getUserArray = $myvalidate->getUserProfile($getUser);
+$updateArray = array();
+$address1 = $address2 = $city = $country = $state = $lga = "";
+if(!empty($_POST['save_changes']) && isset($_POST['save_changes'])){
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $state = $_POST['state'];
+    $lga = $_POST['lga'];
+    $updateArray = $myvalidate->updateaddress($getUser,$address1, $address2, $city, $country, $state, $lga);
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -55,9 +72,9 @@
             </div>
             <div class="log_reg">
                 <ul>
-                    <li><a href="login.php" style="color: #57C5A0;text-decoration: none">Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php" style="color: #57C5A0;text-decoration: none">Register</a> </li>
+                    <li><a href="profile.php" style="color: #57C5A0;text-decoration: none"><?php echo $getUser;?></a> </li>
+                    <span class="log"> </span>
+                    <li><a href="php/logout.php" style="color: #57C5A0;text-decoration: none">Logout</a> </li>
                     <div class="clear"></div>
                 </ul>
             </div>
@@ -133,39 +150,41 @@
         <h3>Add New Address</h3>
         <p>Contact Information<p><br>
         <div class="col-md-8">
-            <form method="post">
-                <label>First name</label>
-                <input type="text" value="php" class="form-control" ><br>
-                <label>Last Name</label>
-                <input type="text" value="php" class="form-control"><br>
-
-                <label>Phone Number</label>
-                <input type="text" value="php" class="form-control"><br><br>
+            <?php
+            for($i=0; $i<count($updateArray); $i++){
+                echo $updateArray[$i];
+            }
+            ?>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <?php
+                foreach ($getUserArray as $x=>$x_value){
+                    $fieldName = $myvalidate->getField($x);
+                    echo "<label>$fieldName</label><input type='text' value='$x_value' class='form-control' disabled><br>";
+                }
+                ?>
                 <label>Address</label><br><br>
                 <label>Street Address</label>
-                <input type="text" value="" class="form-control" required=""><br>
+                <input type="text" value="" class="form-control" name="address1" value="<?php echo $address1;?>" required=""><br>
                 <label>Work or School address</label>
-                <input type="text" value="" class="form-control"><br>
+                <input type="text" value="" name="address2" value="<?php echo $address2;?>" class="form-control"><br>
                 <label>City</label>
-                <input type="text" value="php" class="form-control"><br>
+                <input type="text" value="php" name="city" value="<?php echo $city;?>" class="form-control"><br>
 
                 <label>Select Country</label>
-                <select class="form-control" id="country" name ="country"></select><br>
+                <select class="form-control" id="country" value="<?php echo $country;?>" name ="country"></select><br>
                 <label>Select State</label>
                 <select class="form-control" name ="state" id ="state"></select><br>
                 <script language="javascript">
                     populateCountries("country", "state");
                 </script>
-
                 <label>Local Govt. Area</label>
-                <select class="form-control">
+                <select class="form-control" name="lga">
                     <option>Choose Area</option>
                 </select>
-            </form>
         </div><br><br>
-    <form>
+
         <div class="col-md-offset-8 col-md-3">
-            <input type="submit" value="Save Changes" class="btnMain"><br><br>
+            <input type="submit" value="Save Changes" name="save_changes" class="btnMain"><br><br>
         </div>
     </form>
 </div>
