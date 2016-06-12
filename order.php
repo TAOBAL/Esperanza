@@ -1,3 +1,7 @@
+<?php
+include_once ('php/validate.php');
+$getDisplay = $myvalidate->blogDisplay();
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,12 +58,7 @@
                 <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
             <div class="log_reg">
-                <ul>
-                    <li><a href="login.php" style="color: #57C5A0;text-decoration: none">Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php" style="color: #57C5A0;text-decoration: none">Register</a> </li>
-                    <div class="clear"></div>
-                </ul>
+               <?php echo $getDisplay;?>
             </div>
             <div class="web_search">
                 <form>
