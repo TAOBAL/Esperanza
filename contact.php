@@ -6,16 +6,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php
 include_once ('php/validate.php');
-$getDisplay = $myvalidate->blogDisplay();
-$conatctArray = array();
-$userName = $userEmail = $userPhone = $userMsg = "";
-if(!empty($_POST['contact']) && isset($_POST['contact'])){
-    $userName = $_POST['userName'];
-    $userEmail = $_POST['userEmail'];
-    $userPhone = $_POST['userPhone'];
-    $userMsg = $_POST['userMsg'];
-    $conatctArray = $myvalidate->contact_us($userName, $userEmail, $userPhone, $userMsg);
-}
+
 ?>
 <!DOCTYPE HTML>
 <html>
