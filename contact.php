@@ -4,6 +4,19 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+include_once ('php/validate.php');
+$getDisplay = $myvalidate->blogDisplay();
+$conatctArray = array();
+$userName = $userEmail = $userPhone = $userMsg = "";
+if(!empty($_POST['contact']) && isset($_POST['contact'])){
+    $userName = $_POST['userName'];
+    $userEmail = $_POST['userEmail'];
+    $userPhone = $_POST['userPhone'];
+    $userMsg = $_POST['userMsg'];
+    $conatctArray = $myvalidate->contact_us($userName, $userEmail, $userPhone, $userMsg);
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -44,12 +57,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
             <div class="log_reg">
-                <ul>
-                    <li><a href="login.php" >Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php">Register</a> </li>
-                    <div class="clear"></div>
-                </ul>
+               <?php echo $getDisplay;?>
             </div>
             <div class="web_search">
                 <form>
@@ -131,26 +139,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
                 <div class="contact_right">
                     <div class="contact-form">
+                        <?php
+                            for($i=0; $i<count($conatctArray); $i++){
+                                echo $conatctArray[$i];
+                            }
+                        ?>
                         <h3>Contact Us</h3>
-                        <form method="post" action="contact-post.php">
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
                             <div>
                                 <span><label>NAME</label></span>
-                                <span><input name="userName" type="text" class="textbox"></span>
+                                <span><input name="userName" value="<?php echo $userName;?>" type="text" class="textbox"></span>
                             </div>
                             <div>
                                 <span><label>E-MAIL</label></span>
-                                <span><input name="userEmail" type="text" class="textbox"></span>
+                                <span><input name="userEmail" value="<?php echo $userEmail;?>" type="text" class="textbox"></span>
                             </div>
                             <div>
                                 <span><label>MOBILE</label></span>
-                                <span><input name="userPhone" type="text" class="textbox"></span>
+                                <span><input name="userPhone" value="<?php echo $userPhone;?>" type="text" class="textbox"></span>
                             </div>
                             <div>
                                 <span><label>SUBJECT</label></span>
-                                <span><textarea name="userMsg"> </textarea></span>
+                                <span><textarea name="userMsg"><?php echo $userMsg;?></textarea></span>
                             </div>
                             <div>
-                                <span><input type="submit" value="submit us"></span>
+                                <span><input type="submit" name="contact" value="submit us"></span>
                             </div>
                         </form>
                     </div>
