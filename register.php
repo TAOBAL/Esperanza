@@ -1,3 +1,6 @@
+<?php
+include_once ('php/validate.php');
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -150,19 +153,24 @@
                     <div class="registration_left">
                         <div class="registration_form">
                             <!-- Form -->
-                            <form id="registration_form" action="contact.php" method="post">
+                            <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                                 <div>
                                     <label>
-                                        <input placeholder="email:" name = "email" type="email" tabindex="3" required="">
+                                        <input placeholder="email:" name = "lemail" type="email" value="<?php echo $lemail;?>" tabindex="3"  required="">
                                     </label>
                                 </div>
                                 <div>
                                     <label>
-                                        <input placeholder="password" name = "password" type="password" tabindex="4" required="">
+                                        <input placeholder="password" name = "lpassword" type="password" value="<?php echo $lpassword;?>" tabindex="4" required="">
                                     </label>
                                 </div>
                                 <div>
-                                    <input type="submit" name = "submit" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                    <input type="submit" name = "login" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                    <span><?php
+                                        for($i=0; $i<count($logarray); $i++){
+                                            echo $logarray[$i];
+                                        }
+                                        ;?></span>
                                 </div>
                                 <div class="forget">
                                     <a href="#">forgot your password</a>
@@ -183,44 +191,42 @@
                         <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                             <div>
                                 <label>
-                                    <input placeholder="first name:" name = "fname" type="text" tabindex="1" required="" autofocus="">
-                                      <span class="error">*<?php echo "$fnameErr"?></span>
+                                    <input placeholder="first name:" name = "rfname" type="text" tabindex="1" value="<?php echo $rfname;?>" required="" autofocus="">
                                 </label>
                             </div>
                             <div>
                                 <label>
-                                    <input placeholder="last name:" name = "lname" type="text" tabindex="2" required="" autofocus="">
-                                    <span class="error">*<?php echo "$lnameErr"?></span>
+                                    <input placeholder="last name:" name = "rlname" type="text" tabindex="2" value="<?php echo $rlname;?>" required="" autofocus="">
                                 </label>
                             </div>
                             <div class="sky_form">
                                 <ul>
-                                    <li><label class="radio left"><input type="radio" name="gender" checked=""><i>Male</i></label></li>
-                                    <li><label class="radio"><input type="radio" name="gender"><i>Female</i></label></li>
-                                    <span class="error">*<?php echo "$genderErr"?></span>
+                                    <li><label class="radio left"><input type="radio" value="Male" name="rgender" checked=""><i>Male</i></label></li>
+                                    <li><label class="radio"><input type="radio" value="Female" name="rgender"><i>Female</i></label></li>
                                 </ul>
                             </div>
                             <div>
                                 <label>
-                                    <input placeholder="email address:" name = "email" type="email" tabindex="3" required="">
-                                    <span class="error">*<?php echo "$emailErr"?></span>
-
+                                    <input placeholder="email address:" name = "remail" type="email" value="<?php echo $remail;?>"  tabindex="3" required="">
                                 </label>
                             </div>
                             <div>
                                 <label>
-                                    <input placeholder="password" name = "password" type="password" tabindex="4" required="">
-                                    <span class="error">*<?php echo "$passwordErr"?></span>
-
+                                    <input placeholder="password" name = "rpassword" type="password" value="<?php echo $rpassword;?>" tabindex="4" required="">
                                 </label>
                             </div>
                             <div>
                                 <label>
-                                    <input placeholder="retype password" name = "cpassword" type="password" tabindex="4" required="">
+                                    <input placeholder="retype password" name = "cpassword" type="password"  value="<?php echo $cpassword;?>"tabindex="4" required="">
                                 </label>
                             </div>
                             <div>
-                                <input type="submit" value="create an account"  name = "submit" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                <input type="submit" value="create an account"  name = "register" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+                                <span><?php
+                                    for($i=0; $i<count($regarray); $i++){
+                                        echo $regarray[$i];
+                                    }
+                                    ;?></span>
                             </div>
                             <div class="sky_form">
                                 <label class="checkbox"><input type="checkbox" name="checkbox"><i>i agree to <a class="terms" href="#"style="text-decoration: none"> terms of service</a> </i></label>
