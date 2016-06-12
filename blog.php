@@ -4,6 +4,11 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+<?php
+include_once ('php/validate.php');
+$getDisplay = $myvalidate->blogDisplay();
+?>
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -58,12 +63,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
             <div class="log_reg">
-                <ul>
-                    <li><a href="login.php" style="color: #57C5A0">Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php" style="color: #57C5A0">Register</a> </li>
-                    <div class="clear"></div>
-                </ul>
+                <?php echo $getDisplay;?>
             </div>
             <div class="web_search">
                 <form>
