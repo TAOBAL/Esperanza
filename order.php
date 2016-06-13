@@ -13,7 +13,7 @@ include_once ('php/validate.php');
     <link href="css/home.css" rel="stylesheet" type="text/css"/>
     <link href="css/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    -->    <!--- start-mmmenu-script---->
+       <!--- start-mmmenu-script---->
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
@@ -50,7 +50,7 @@ include_once ('php/validate.php');
 </head>
 <body style="overflow-x: hidden">
 <!-- start header -->
-<div class="top_bg" style="height: 70px">
+<div class="top_bg" style="  height: 70px">
     <div class="wrap">
         <div class="header">
             <div class="logo">
@@ -112,7 +112,8 @@ include_once ('php/validate.php');
         <div class="clear"></div>
     </div>
 </div>
-<div class="top_bg">
+<div class="top_bg" style="  margin-top: -10px;
+    height: 50px;">
     <div class="wrap">
         <div class="main_top">
             <h2 class="style" style="margin-top: -15px;color: #ffffff">My Account</h2>

@@ -1,3 +1,7 @@
+<?php
+include_once ('php/validate.php');
+
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -45,19 +49,14 @@
 </head>
 <body>
 <!-- start header -->
-<div class="top_bg">
+<div class="top_bg" >
     <div class="wrap">
         <div class="header">
             <div class="logo">
                 <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
             <div class="log_reg">
-                <ul>
-                    <li><a href="login.php" style="color: #57C5A0">Login</a> </li>
-                    <span class="log"> or </span>
-                    <li><a href="register.php" style="color: #57C5A0">Register</a> </li>
-                    <div class="clear"></div>
-                </ul>
+               <?php echo $getDisplay;?>
             </div>
             <div class="web_search">
                 <form>
@@ -74,6 +73,7 @@
     <div class="header_btm">
         <div class="menu">
             <ul>
+                <li class="active"><a href="index.php"></a></li>
                 <li class="active"><a href="index.php">Home</a></li>
                 <li class="dropdown"><a href="collection.php">products</a>
                     <ul class="dropdown-content">

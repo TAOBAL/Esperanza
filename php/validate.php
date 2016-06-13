@@ -33,6 +33,8 @@ class validate{
                 $values = array($fname, $lname, $email, $password, $gender);
                 $result = $query->execute($values);
                 if ($result) {
+                    session_start();
+                    $_SESSION['email'] = $email;
                     header("location:profile.php");
                 }
             }

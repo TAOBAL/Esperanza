@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <?php
 include_once ('php/validate.php');
 ?>
-?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -17,6 +16,7 @@ include_once ('php/validate.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/home.css" rel="stylesheet" type="text/css"/>
 
     <!--- start-mmmenu-script---->
     <script src="js/jquery.min.js" type="text/javascript"></script>
@@ -79,8 +79,16 @@ include_once ('php/validate.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
+                <li class="active"><a href="index.php"></a></li>
                 <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="collection.php">products</a></li>
+                <li class="dropdown"><a href="collection.php">products</a>
+                    <ul class="dropdown-content">
+                        <li><a href="#">flat</a></li>
+                        <li><a href="#">heels</a></li>
+                        <li><a href="#">sandals</a></li>
+                        <li><a href="#">bags &amp African fabrics</a></li>
+                    </ul>
+                </li>
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>

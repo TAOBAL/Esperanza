@@ -4,7 +4,7 @@ class database{
     public $server = "localhost";
     public $user = "root";
     public $dbname = "esperanza";
-    public $pass = "";
+    public $pass = "august17";
 
     function connectDB(){
         try {

@@ -13,7 +13,7 @@ include_once ('php/validate2.php');
     <link href="css/home.css" rel="stylesheet" type="text/css"/>
     <link href="css/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    -->    <!--- start-mmmenu-script---->
+       <!--- start-mmmenu-script---->
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>

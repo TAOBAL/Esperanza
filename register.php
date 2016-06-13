@@ -209,6 +209,9 @@ include_once ('php/validate.php');
                                 <label>
                                     <input placeholder="email address:" name = "remail" type="email" value="<?php echo $remail;?>"  tabindex="3" required="">
                                 </label>
+                                <label>
+                                    <input placeholder="Phone Number:" name = "phone" type="text" value="<?php echo $phone;?>"  tabindex="3" required="">
+                                </label>
                             </div>
                             <div>
                                 <label>

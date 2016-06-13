@@ -122,7 +122,7 @@ include_once ('php/validate2.php');
         <div class="clear"></div>
     </div>
 </div>
-<div class="top_bg">
+<div class="top_bg" style="  margin-top: -10px;height: 50px;">
     <div class="wrap">
         <div class="main_top">
             <h2 class="style" style="margin-top: -15px;color: #ffffff">My Account</h2>
@@ -155,10 +155,18 @@ include_once ('php/validate2.php');
                     echo "<label>$fieldName</label><input type='text' id='$x' name='$x' value='$x_value' class='form-control'><br>";
                 }
                 ?>
-                <br><label></label>
-                <a href="#"  class="btn2" style="text-decoration: none">Change Password</a><br><br>
-        </div>
+                <br>
+               <label style="font-size: 18px">Change Password</label><br><br>
+                   <label>Enter old Password</label>
+                    <input type="password" class="form-control" onfocus="">
+                    <label>Enter new Password</label>
+                    <input type="password" class="form-control">
+                    <label>Confirm new Password</label>
+                    <input type="password" class="form-control">
+                </div>
+
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
     <div class="accDet">DELIVERY ADDRESS</div><br>
         <div class="row">
             <div class="col-md-2">
@@ -174,4 +182,7 @@ include_once ('php/validate2.php');
         </div>
     </form>
 </div>
+</div>
 
+</body>
+</html>
