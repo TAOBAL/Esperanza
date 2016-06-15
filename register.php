@@ -152,6 +152,14 @@ include_once ('php/validate.php');
                     </script>
                     <div class="registration_left">
                         <div class="registration_form">
+<<<<<<< HEAD
+=======
+                            <span><?php
+                                for($i=0; $i<count($logarray); $i++){
+                                    echo $logarray[$i];
+                                }
+                                ;?></span>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                             <!-- Form -->
                             <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                                 <div>
@@ -166,11 +174,14 @@ include_once ('php/validate.php');
                                 </div>
                                 <div>
                                     <input type="submit" name = "login" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+<<<<<<< HEAD
                                     <span><?php
                                         for($i=0; $i<count($logarray); $i++){
                                             echo $logarray[$i];
                                         }
                                         ;?></span>
+=======
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                                 </div>
                                 <div class="forget">
                                     <a href="#">forgot your password</a>
@@ -187,6 +198,14 @@ include_once ('php/validate.php');
                 <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping address, view and track your orders in your accoung and more.</p>
                 <div class="registration_left">
                     <div class="registration_form">
+<<<<<<< HEAD
+=======
+                        <span><?php
+                            for($i=0; $i<count($regarray); $i++){
+                                echo $regarray[$i]."<p>";
+                            }
+                            ;?></span>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                         <!-- Form -->
                         <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
                             <div>
@@ -209,6 +228,11 @@ include_once ('php/validate.php');
                                 <label>
                                     <input placeholder="email address:" name = "remail" type="email" value="<?php echo $remail;?>"  tabindex="3" required="">
                                 </label>
+<<<<<<< HEAD
+=======
+                            </div>
+                            <div>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                                 <label>
                                     <input placeholder="Phone Number:" name = "phone" type="text" value="<?php echo $phone;?>"  tabindex="3" required="">
                                 </label>
@@ -225,11 +249,14 @@ include_once ('php/validate.php');
                             </div>
                             <div>
                                 <input type="submit" value="create an account"  name = "register" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+<<<<<<< HEAD
                                 <span><?php
                                     for($i=0; $i<count($regarray); $i++){
                                         echo $regarray[$i];
                                     }
                                     ;?></span>
+=======
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                             </div>
                             <div class="sky_form">
                                 <label class="checkbox"><input type="checkbox" name="checkbox"><i>i agree to <a class="terms" href="#"style="text-decoration: none"> terms of service</a> </i></label>

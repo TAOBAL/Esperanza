@@ -145,7 +145,11 @@ include_once ('php/validate2.php');
         <div class="col-md-5">
             <?php
             for($i=0; $i<count($profileArray); $i++){
+<<<<<<< HEAD
                 echo $profileArray[$i];
+=======
+                echo $profileArray[$i]."<p>";
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
             }
             ?>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
@@ -158,11 +162,19 @@ include_once ('php/validate2.php');
                 <br>
                <label style="font-size: 18px">Change Password</label><br><br>
                    <label>Enter old Password</label>
+<<<<<<< HEAD
                     <input type="password" class="form-control" onfocus="">
                     <label>Enter new Password</label>
                     <input type="password" class="form-control">
                     <label>Confirm new Password</label>
                     <input type="password" class="form-control">
+=======
+                    <input type="password" name="oldpass" class="form-control" onfocus="">
+                    <label>Enter new Password</label>
+                    <input type="password" name="newpass" class="form-control">
+                    <label>Confirm new Password</label>
+                    <input type="password" name="newpass1" class="form-control">
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                 </div>
 
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

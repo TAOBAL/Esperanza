@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+=======
+<?php
+include_once ('php/validate.php');
+$type = $desc = $price = $available = $ShoeType = "";
+$adminPostArray = array();
+if(isset($_POST['admin_post'])){
+    $type = $_POST['type'];
+    $desc = $_POST['desc'];
+    $price = $_POST['price'];
+    $available = $_POST['available'];
+    $ShoeType = $_POST['ShoeType'];
+    $adminPostArray = $myvalidate->AdminPost($type, $desc, $price, $available, $ShoeType);
+}
+$AllShoes = $blogPost = $AllUsers = array();
+$AllShoes = $myvalidate->getShoes();
+$blogPost = $myvalidate->getBlogPost();
+$AllUsers = $myvalidate->getAllUsers();
+?>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
@@ -33,6 +53,7 @@
 <div class="container">
 <div class="row">
     <div class=" col-md-offset-1 col-md-6">
+<<<<<<< HEAD
         <form>
             <select class="pull-right btn-lg">
                 <option>Blog</option>
@@ -44,6 +65,32 @@
             <input type="text" placeholder="Price">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="text" placeholder="Available"><br>
             <input type="button" class="btn btn-default btn-lg pull-right" value="Post"><br>
+=======
+        <span>
+            <?php
+                for($i=0; $i<count($adminPostArray); $i++){
+                    echo $adminPostArray[$i];
+                }
+            ?>
+        </span>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" enctype="multipart/form-data">
+            <select class="pull-right btn-lg" name="type">
+                <option>Blog</option>
+                <option>Shoe</option>
+            </select><br><br><br>
+            <select class="pull-right btn-lg" name="ShoeType">
+                <option>Heels</option>
+                <option>Flats</option>
+                <option>Sandals</option>
+                <option>Bags and African Fabrics</option>
+            </select><br><br><br>
+            <textarea class="form-control" rows="7"  name="desc">
+            </textarea><br>
+            <input type="file" onchange="readURL(this)" name="image"><br>
+            <input type="text" placeholder="Price" name="price">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" placeholder="Available" name="available"><br>
+            <input type="submit" name="admin_post" class="btn btn-default btn-lg pull-right" value="Post"><br>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
         </form>
     </div>
     <div class="col-md-5" style="margin-top: 60px;">
@@ -54,6 +101,7 @@
 </div>
 </div><br><br>
 <div class="table-responsive">
+<<<<<<< HEAD
     <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
         <thead class='primary' >
         <tr>
@@ -76,6 +124,87 @@
 <td></td>
 </tbody>
        </table>
+=======
+    <span>
+        <?php
+            echo count($AllUsers)." Users";
+        ?>
+    </span>
+    <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
+        <thead class='primary' >
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+            <th>Telephone</th>
+            <th>Gender</th>
+            <th>Date Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        for($i=0; $i<count($AllUsers); $i++){
+            echo "<tr>".$AllUsers[$i]."</tr>";
+        }
+
+        ?>
+        </tbody>
+    </table>
+</div><br><br>
+<div class="table-responsive">
+     <span>
+        <?php
+        echo count($AllShoes)." Available Shoes";
+        ?>
+    </span>
+    <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
+        <thead class='primary' >
+        <tr>
+            <th>Shoe Description</th>
+            <th>Shoe Price</th>
+            <th>Shoe Available Number</th>
+            <th>Photo</th>
+            <th>Shoe Type</th>
+            <th>Date Posted</th>
+            <th>Option</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        for($i=0; $i<count($AllShoes); $i++){
+            echo "<tr>".$AllShoes[$i]."</tr>";
+        }
+
+        ?>
+        </tbody>
+       </table>
+</div><br><br>
+<div class="table-responsive">
+     <span>
+        <?php
+        echo count($blogPost)." blog Posts";
+        ?>
+    </span>
+    <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
+        <thead class='primary' >
+        <tr>
+            <th>Blog News</th>
+            <th>Blog Picture</th>
+            <th>Date Posted</th>
+            <th>Option</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        for($i=0; $i<count($blogPost); $i++){
+            echo "<tr>".$blogPost[$i]."</tr>";
+        }
+
+        ?>
+        </tbody>
+    </table>
+</div>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
 <script type="text/javascript">
     function readURL(input) {
         if (input.files && input.files[0]) {

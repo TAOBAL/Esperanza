@@ -166,6 +166,16 @@ include_once ('php/validate.php');
                     </script>
                     <div class="registration_left">
                         <div class="registration_form">
+<<<<<<< HEAD
+=======
+                            <span>
+                                <?php
+                                for($i=0; $i<count($logarray); $i++){
+                                    echo $logarray[$i];
+                                }
+                                ?>
+                            </span>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                             <!-- Form -->
                             <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                                 <div>
@@ -180,11 +190,14 @@ include_once ('php/validate.php');
                                 </div>
                                 <div>
                                     <input type="submit" name="login" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
+<<<<<<< HEAD
                                     <?php
                                         for($i=0; $i<count($logarray); $i++){
                                             echo $logarray[$i];
                                         }
                                     ?>
+=======
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                                 </div>
                                 <div class="forget">
                                     <a href="#" style="text-decoration: none">forgot your password</a>

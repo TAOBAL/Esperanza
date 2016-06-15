@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+=======
+<?php
+include_once ('php/validate.php');
+$ausername = $apassword = "";
+$adminArray = array();
+if(!empty($_POST['admin_login']) && isset($_POST['admin_login'])){
+    $ausername = $_POST['ausername'];
+    $apassword = $_POST['apassword'];
+    $adminArray = $myvalidate->loginAdmin($ausername, $apassword);
+}
+?>
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
@@ -31,6 +44,7 @@
     </div>
 </div><br><br>
 <div class="container">
+<<<<<<< HEAD
 <form>
     <div class="col-md-offset-4 col-md-4 logd" style="background-color: white;border: solid 3px white" >
 
@@ -38,6 +52,21 @@
        <br><br>
             <input type="text" placeholder="Password" class="form-control" name="apassword"><br>
         <input type="button" value="Login" class="btn btn-success" style="margin-left: 120px">
+=======
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+    <div class="col-md-offset-4 col-md-4 logd" style="background-color: white;border: solid 3px white" >
+<span>
+        <?php
+        for($i=0; $i<count($adminArray); $i++){
+            echo $adminArray[$i];
+        }
+        ?>
+    </span><br><br>
+            <input type="text" placeholder="Username" class="form-control" name="ausername" value="<?php echo $ausername;?>" >
+       <br><br>
+            <input type="text" placeholder="Password" class="form-control" name="apassword" value="<?php echo $apassword;?>"><br>
+        <input type="submit" value="Login" class="btn btn-success" style="margin-left: 120px" name="admin_login">
+>>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
     </div>
 </form>
 </div>
