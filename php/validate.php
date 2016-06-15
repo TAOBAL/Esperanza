@@ -11,17 +11,6 @@ class validate{
         return $this->link;
     }
     
-<<<<<<< HEAD
-    function registerUsers($fname, $lname, $email, $password, $gender, $cpassword){
-        if(empty($fname) || empty($lname) || empty($email) || empty($password) || empty($gender) || empty($cpassword)){
-            $error = "All fields are required";
-            $this->responseArray = array($error);
-            return $this->responseArray;
-        }elseif($password != $cpassword) {
-            $error = "Password does not match";
-            $this->responseArray = array($error);
-            return $this->responseArray;
-=======
     function registerUsers($fname, $lname, $email, $password, $gender, $cpassword, $phone){
         if(empty($fname) || empty($lname) || empty($email) || empty($password) || empty($gender) || empty($cpassword) || empty($phone)){
             $error = "All fields are required";
@@ -29,7 +18,6 @@ class validate{
         }elseif($password != $cpassword) {
             $error = "Password does not match";
             $this->responseArray = array($error);
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
         }else{
             $queryEmail = $this->link->prepare("SELECT * FROM users WHERE email='$email'");
             $queryEmail->execute();
@@ -37,34 +25,20 @@ class validate{
             if ($resultEmail) {
                 $error = "Email already exist";
                 $this->responseArray = array($error);
-<<<<<<< HEAD
-                return $this->responseArray;
-            } else {
-                $query = $this->link->prepare("INSERT INTO users(fname, lname, email, password, gender) VALUES (?,?,?,?,?)");
-                $values = array($fname, $lname, $email, $password, $gender);
-                $result = $query->execute($values);
-                if ($result) {
-=======
             } else {
                 $query = $this->link->prepare("INSERT INTO users(fname, lname, email, password, gender, telephone) VALUES (?,?,?,?,?,?)");
                 $values = array($fname, $lname, $email, $password, $gender, $phone);
                 $result = $query->execute($values);
                 if ($result) {
                     $this->responseArray = array("Account created successfully");
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
                     session_start();
                     $_SESSION['email'] = $email;
                     header("location:profile.php");
                 }
             }
         }
-<<<<<<< HEAD
-    }
-
-=======
         return $this->responseArray;
     }
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
     function loginUsers($email, $password)
     {
         if (empty($email) || empty($password)) {
@@ -152,11 +126,6 @@ class validate{
         }
         return $this->responseArray;
     }
-<<<<<<< HEAD
-    function updateProfile($user_id, $fname, $lname, $phone){
-        if(empty($fname) || empty($lname)){
-            $this->responseArray = array("First name and last name are required");
-=======
     function updateProfile($user_id, $fname, $lname, $phone, $oldpass, $newpass, $newpass1){
         if(empty($fname) || empty($lname)){
             $this->responseArray = array("First name and last name are required");
@@ -173,17 +142,12 @@ class validate{
                 }else{
                     $this->responseArray = array("Password mismatched");
                 }
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
         }else{
             $query = $this->link->prepare("UPDATE users SET fname='$fname', lname='$lname', telephone='$phone' WHERE user_id='$user_id'");
             $query->execute();
             $rowCount = $query->rowCount()? true : false;
             if($rowCount == true){
                 $this->responseArray = array("Profile successfully updated");
-<<<<<<< HEAD
-                header('location:profile.php');
-=======
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
             }else{
                 $this->responseArray = array("No changes made");
             }
@@ -214,12 +178,6 @@ class validate{
         }
         return $this->responseArray;
     }
-<<<<<<< HEAD
-}
-
-$myvalidate = new validate();
-$rfname = $rlname = $remail = $rgender = $rpassword = $cpassword =  "";
-=======
     function loginAdmin($username, $password){
         if(empty($username) || empty($password)){
             $this->responseArray = array("All fields are required");
@@ -395,7 +353,6 @@ $rfname = $rlname = $remail = $rgender = $rpassword = $cpassword =  "";
 
 $myvalidate = new validate();
 $rfname = $rlname = $remail = $rgender = $rpassword = $cpassword = $phone =  "";
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
 $regarray = array();
 if(!empty($_POST['register']) && isset($_POST['register'])){
     $rfname = $_POST['rfname'];
@@ -404,13 +361,8 @@ if(!empty($_POST['register']) && isset($_POST['register'])){
     $rpassword = $_POST['rpassword'];
     $rgender = $_POST['rgender'];
     $cpassword = $_POST['cpassword'];
-<<<<<<< HEAD
-
-    $regarray = $myvalidate->registerUsers($rfname, $rlname, $remail, $rpassword, $rgender, $cpassword);
-=======
     $phone = $_POST['phone'];
     $regarray = $myvalidate->registerUsers($rfname, $rlname, $remail, $rpassword, $rgender, $cpassword, $phone);
->>>>>>> d60e9d9185ea8bd85385a3f4f1e412d69e743bed
 }
 $lemail = $lpassword = "";
 $logarray = array();

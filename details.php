@@ -10,6 +10,7 @@ include_once ('php/validate.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/style.css" rel="stylesheet" type="text/css" media= />
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <!-- start details -->
     <link rel="stylesheet" type="text/css" href="css/productviewgallery.css" media="all" />

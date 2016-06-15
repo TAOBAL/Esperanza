@@ -1,0 +1,26 @@
+.sidebar{
+    background-color: #242424;
+   margin-left: -20px;
+    border-top:solid 2px #4e4e4e ;
+    width: 210px;
+    padding-top: 50px;
+    padding-left: 20px;
+    position: fixed;
+    line-height: 30px;
+
+    font-family: cursive;
+    height: 100% !important;
+
+}
+.sidebar li a{
+    color: #afafaf;
+    letter-spacing: 0.1em;
+}
+.sidebar li a:hover{
+    width: 200px;
+    background-color: #747474;
+    margin-left: -27px;
+    color: #ffffff;
+
+
+}
