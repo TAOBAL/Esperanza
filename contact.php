@@ -22,6 +22,7 @@ include_once ('php/validate.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -70,15 +71,17 @@ include_once ('php/validate.php');
                 <li><a href="index.php">Home</a></li>
                 <li class="dropdown"><a href="collection.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
-                <li class="active"><a href="contact.php">Contact</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <div class="clear"></div>
             </ul>
         </div>
