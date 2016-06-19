@@ -1,5 +1,21 @@
 <?php
 include_once ('php/validate.php');
+$key = "";
+if(isset($_GET['ghei_oqid'])){
+    $key = $_GET['ghei_oqid'];
+}else{
+    header('location:index.php');
+}
+$getMyShoe = $getRelatedProduct = array();
+$getMyShoe = $myvalidate->shoeById($key);
+$getRelatedProduct = $myvalidate->relatedProduct($key);
+$id = $quantity = "";
+$orderArray = array();
+if(!empty($_POST['proceed']) && isset($_POST['proceed'])){
+    $id = $_POST['id'];
+    $quantity = $_POST['option'];
+    $orderArray = $myvalidate->addOrder($id, $quantity);
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -10,6 +26,7 @@ include_once ('php/validate.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/home.css" rel="stylesheet" type="text/css" media="all" />
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <!-- start details -->
     <link rel="stylesheet" type="text/css" href="css/productviewgallery.css" media="all" />
@@ -20,6 +37,7 @@ include_once ('php/validate.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -64,8 +82,18 @@ include_once ('php/validate.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
+                <li><a href="index.php"></a></li>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="collection.php">products</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
+                    <ul class="dropdown-content">
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
+                    </ul>
+                </li>
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -75,16 +103,7 @@ include_once ('php/validate.php');
         <div id="smart_nav">
             <a class="navicon" href="#menu-left"> </a>
         </div>
-        <nav id="menu-left">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="collection.php">products</a></li>
-                <li><a href="blog.php">blog</a></li>
-                <li><a href="HowitWorks.php">How it Works</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <div class="clear"></div>
-            </ul>
-        </nav>
+        
         <div class="header_right">
             <ul>
                 <li><a href="#"><i  class="art"></i><span class="color1">30</span></a></li>
@@ -118,7 +137,26 @@ include_once ('php/validate.php');
                     <div class="more-views">
                         <div class="more-views-container">
                             <ul>
-                                <li>
+                                <?php
+                                   for($i=0; $i<count($getMyShoe); $i++){
+                                        if($i>0){
+                                            break;
+                                        }
+                                        echo "<li><a class='cs-fancybox-thumbs' data-fancybox-group='thumb'  href=''  title='' alt=''>".
+                                                "<img  src='$getMyShoe[$i]'  title='' alt=''></a></li>";
+
+                                        echo "<li><a class='cs-fancybox-thumbs' data-fancybox-group='thumb'  href=''  title='' alt=''>".
+                                            "<img  src='$getMyShoe[$i]'  title='' alt=''></a></li>";
+
+                                        echo "<li><a class='cs-fancybox-thumbs' data-fancybox-group='thumb'  href=''  title='' alt=''>".
+                                            "<img  src='$getMyShoe[$i]'  title='' alt=''></a></li>";
+
+                                        echo "<li><a class='cs-fancybox-thumbs' data-fancybox-group='thumb'  href=''  title='' alt=''>".
+                                            "<img  src='$getMyShoe[$i]'  title='' alt=''></a></li>";
+
+                                    }
+                                ?>
+                               <!--<li>
                                     <a class="cs-fancybox-thumbs" data-fancybox-group="thumb"  href=""  title="" alt="">
                                         <img  src="images/0001-2.jpg"  title="" alt="" /></a>
                                 </li>
@@ -137,16 +175,25 @@ include_once ('php/validate.php');
                                 <li>
                                     <a class="cs-fancybox-thumbs" data-fancybox-group="thumb"  href=""  title="" alt="">
                                         <img  src="images/0001-4.jpg" title="" alt="" /></a>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>
                     <div class="product-image">
-                        <a class="cs-fancybox-thumbs cloud-zoom" rel="adjustX:30,adjustY:0,position:'right',tint:'#202020',tintOpacity:0.5,smoothMove:2,showTitle:true,titleOpacity:0.5" data-fancybox-group="thumb" href="images/0001-2.jpg" title="Women Shorts" alt="Women Shorts">
-                            <img src="images/0001-2.jpg" alt="Women Shorts" title="Women Shorts" />
+                       <!-- <a class="cs-fancybox-thumbs cloud-zoom" rel="adjustX:30,adjustY:0,position:'right',tint:'#202020',tintOpacity:0.5,smoothMove:2,showTitle:true,titleOpacity:0.5" data-fancybox-group="thumb" href="" title="Women Shorts" alt="Women Shorts">
+     -->                      <!-- <img src="" alt="Women Shorts" title="Women Shorts" />-->
+                            <?php
+                                for($i=0; $i<count($getMyShoe); $i++){
+                                    if($i>0){
+                                        break;
+                                    }
+                                    echo " <a class=\"cs-fancybox-thumbs cloud-zoom\" rel=\"adjustX:30,adjustY:0,position:'right',tint:'#202020',tintOpacity:0.5,smoothMove:2,showTitle:true,titleOpacity:0.5\" data-fancybox-group=\"thumb\" href=\"$getMyShoe[$i]\" title='' alt=''>";
+                                    echo "<img src='$getMyShoe[$i]' alt='' title=''>";
+                                }
+                            ?>
                         </a>
                     </div>
-                    <script type="text/javascript">
+                 <!-- <script type="text/javascript">
                         var prodGallery = jQblvg.parseJSON('{"prod_1":{"main":{"orig":"images/0001-2.jpg","main":"images/large/0001-2.jpg","thumb":"images/small/0001-2.jpg","label":""},"gallery":{"item_0":{"orig":"images/0001-2.jpg","main":"images/large/0001-2.jpg","thumb":"images/small/0001-2.jpg","label":""},"item_1":{"orig":"images/0001-1.jpg","main":"images/large/0001-1.jpg","thumb":"images/small/0001-1.jpg","label":""},"item_2":{"orig":"images/0001-5.jpg","main":"images/large/0001-5.jpg","thumb":"images/small/0001-5.jpg","label":""},"item_3":{"orig":"images/0001-3.jpg","main":"images/large/0001-3.jpg","thumb":"images/small/0001-3.jpg","label":""},"item_4":{"orig":"images/0001-4.jpg","main":"images/large/0001-4.jpg","thumb":"images/small/0001-4.jpg","label":""}},"type":"simple","video":false}}'),
                             gallery_elmnt = jQblvg('.product-img-box'),
                             galleryObj = new Object(),
@@ -175,7 +222,7 @@ include_once ('php/validate.php');
                         function initGallery(a,b,element) {
                             galleryObj[a] = new prodViewGalleryForm(prods, b, gallery_elmnt, gallery_conf, '.product-image', '.more-views', '');
                         };
-                    </script>
+                    </script>-->
                 </div>
             </div>
         </div>
@@ -185,13 +232,21 @@ include_once ('php/validate.php');
     <div class="span1_of_1_des">
         <div class="desc1">
             <h3>Full view of the Product</h3>
-            <h5>#3500 <span>#4000</span>  <a href="#">click for offer</a></h5>
+            <?php
+                for($i=1; $i<count($getMyShoe); $i++){
+                    if($i>1){
+                        break;
+                    }
+                    echo $getMyShoe[$i];
+                }
+            ?>
+            <!--<h5>#3500 <span>#4000</span>  <a href="#">click for offer</a></h5>
             <div class="available">
                 <div class="btn_form">
                     <form>
                         <input type="submit" value="buy now" title="" />
                     </form>
-                </div>
+                </div>-->
 
             </div><br><br><br><br>
             <div class="share-desc">
@@ -220,8 +275,13 @@ include_once ('php/validate.php');
 <!-- start left_sidebar -->
 <div class="left_sidebar">
 
-    <h4>recent products</h4>
-    <div class="left_products">
+    <h4>related products</h4>
+    <?php
+        for($i=0; $i<count($getRelatedProduct); $i++){
+            echo "<div class='left_products'>".$getRelatedProduct[$i]."<div class='clear'></div></div>";
+        }
+    ?>
+    <!--<div class="left_products">
         <div class="left_img">
             <img src="images/det_pic1.jpg" alt=""/>
         </div>
@@ -253,7 +313,7 @@ include_once ('php/validate.php');
             <span>$75.00</span>
         </div>
         <div class="clear"></div>
-    </div>
+    </div>-->
     <h4>related colors</h4>
     <ul class="color-list">
         <li><a href="#"> <span class="color2"> </span><p class="red">Green</p></a></li>
