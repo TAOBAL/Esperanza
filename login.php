@@ -10,10 +10,12 @@ include_once ('php/validate.php');
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Maven+Pro:400,900,700,500' rel='stylesheet' type='text/css'>
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/home.css" rel="stylesheet" type="text/css" media="all" />
     <!--- start-mmmenu-script---->
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -63,8 +65,18 @@ include_once ('php/validate.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
-                <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="collection.php">products</a></li>
+                <li><a href="index.php"></a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
+                    <ul class="dropdown-content">
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
+                    </ul>
+                </li>
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -74,16 +86,7 @@ include_once ('php/validate.php');
         <div id="smart_nav">
             <a class="navicon" href="#menu-left"> </a>
         </div>
-        <nav id="menu-left">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="collection.php">products</a></li>
-                <li><a href="blog.php">blog</a></li>
-                <li><a href="HowitWorks.php">How it Works</a></li>
-                <li><a href="contact.php">Contact</a></li>
-                <div class="clear"></div>
-            </ul>
-        </nav>
+        
         <div class="header_right">
             <ul>
                 <li><a href="#"><i  class="art"></i><span class="color1">30</span></a></li>
@@ -166,6 +169,13 @@ include_once ('php/validate.php');
                     </script>
                     <div class="registration_left">
                         <div class="registration_form">
+                            <span>
+                                <?php
+                                for($i=0; $i<count($logarray); $i++){
+                                    echo $logarray[$i];
+                                }
+                                ?>
+                            </span>
                             <!-- Form -->
                             <form id="registration_form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="post">
                                 <div>
@@ -180,11 +190,6 @@ include_once ('php/validate.php');
                                 </div>
                                 <div>
                                     <input type="submit" name="login" value="sign in" style="background-color: #57C5A0;border: 1px solid #57C5A0" id="register-submit">
-                                    <?php
-                                        for($i=0; $i<count($logarray); $i++){
-                                            echo $logarray[$i];
-                                        }
-                                    ?>
                                 </div>
                                 <div class="forget">
                                     <a href="#" style="text-decoration: none">forgot your password</a>
