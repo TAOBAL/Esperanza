@@ -17,6 +17,7 @@ include_once ('php/validate2.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -84,20 +85,20 @@ include_once ('php/validate2.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
-                <li class="active"><a href="index.php">Home</a></li>
-                <li class="dropdown"><a href="collection.php">products</a>
+                <li><a href="index.php">Home</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
-
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
-
                 <div class="clear"></div>
             </ul>
         </div>
@@ -145,7 +146,7 @@ include_once ('php/validate2.php');
         <div class="col-md-5">
             <?php
             for($i=0; $i<count($profileArray); $i++){
-                echo $profileArray[$i];
+                echo $profileArray[$i]."<p>";
             }
             ?>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
@@ -158,11 +159,11 @@ include_once ('php/validate2.php');
                 <br>
                <label style="font-size: 18px">Change Password</label><br><br>
                    <label>Enter old Password</label>
-                    <input type="password" class="form-control" onfocus="">
+                    <input type="password" name="oldpass" class="form-control" onfocus="">
                     <label>Enter new Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" name="newpass" class="form-control">
                     <label>Confirm new Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" name="newpass1" class="form-control">
                 </div>
 
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
