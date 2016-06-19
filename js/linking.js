@@ -13,7 +13,7 @@ function getKey(id){
 
 function getAdminLink(ids){
     if(ids==5){
-        ids = "blog_post";
+        ids = "blog";
     }else if(ids==6){
         ids = "users";
     }else if(ids==7){
