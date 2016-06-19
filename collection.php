@@ -1,5 +1,24 @@
 <?php
 include_once ('php/validate.php');
+$producttype = $keyType = "";
+if(isset($_GET['dsnj_oufg'])){
+    $keyType = $_GET['dsnj_oufg'];
+    if($keyType == "heels-and-wedges-collections"){
+        $producttype = "Heels";
+    }elseif($keyType == "flat-shoes-collections"){
+        $producttype = "Flats";
+    }elseif($keyType == "sandals-collections"){
+        $producttype = "Sandals";
+    }elseif($keyType == "bags-and-african-fabrics"){
+        $producttype = "Bags and African Fabrics";
+    }else{
+       header('location:index.php');
+    }
+}else{
+    header('location:index.php');
+}
+$productArray = array();
+$productArray = $myvalidate->getShoeByType($producttype);
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,6 +35,7 @@ include_once ('php/validate.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -34,7 +54,7 @@ include_once ('php/validate.php');
         });
     </script>
 </head>
-<body>
+<body onload="displayType();">
 <!-- start header -->
 <div class="top_bg">
     <div class="wrap">
@@ -62,12 +82,14 @@ include_once ('php/validate.php');
             <ul>
                 <li><a href="index.php"></a></li>
                 <li><a href="index.php">Home</a></li>
-                <li class="dropdown"><a href="collection.php">products</a>
+                <li class="dropdown"><a href="product.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li><a href="blog.php">blog</a></li>
@@ -111,118 +133,54 @@ include_once ('php/validate.php');
 <div class="main_bg">
     <div class="wrap">
         <div class="main">
-            <div class="top_main">
-                <h2>new arrivals on Esperanza</h2>
-                <a href="#">show all</a>
-                <div class="clear"></div>
+                <div class="top_main">
+                    <h2><?php echo $producttype." Collections";?></h2>
+                    <a href="#">show all</a>
+                    <div class="clear"></div>
+                </div>
+                <!-- start grids_of_3 -->
+                <div class="grids_of_3">
+                    <?php
+                    $count = 0;
+                    $div =  "<div class='grids_of_3'>";
+                    $div2 = "<div class='clear'></div></div>";
+                    for($i=0;$i<count($productArray); $i++){
+                        $count++;
+                        echo "<div class='grid1_of_3'>".$productArray[$i]." </div>";
+                        if($count%3==0){
+                            echo $div2.$div;
+                        }
+                    }
+                    ?>
+                    <div class="clear"></div>
+                </div>
+
             </div>
-            <!-- start grids_of_3 -->
-            <div class="grids_of_3">
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic1.jpg" alt="">
-                        <h3>even &amp; odd</h3>
-                        <span class="price">$145,99</span>
-                    </a>
+        <!--<div class="clear"></div>-->
+        <!-- start grids_of_2 -->
+        <div class="grids_of_2">
+            <div class="grid1_of_2">
+                <div class="span1_of_2">
+                    <h2>free shipping</h2>
+                    <p>Free shipping is only available for our customers residing in ile-ife that is purchasing two and above of our goods but other customers outside ile-ife osun state will attract a token fee! place your order now!!!!</p>
                 </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic2.jpg" alt="">
-                        <h3>buffalo decollete</h3>
-                        <span class="price">$185,99</span>
-                        <span class="price1 bg">on sale</span>
-                    </a>
+                <div class="span1_of_2" >
+                    <h2>testimonials</h2>
+                    <p>Your shoes were a hit! Since I have decided to get a pair with red and cream leather I thought I would send along a photo of the green and cream you just made me......they show up darker than real life but you remember them I am sure. Again, no worries on the timing and I really enjoy these shoes....they are incredibly comfortable and even though they are new....I had a 20 hour day and they were perfect. Hope all is well and the show was a success for you.</p>
                 </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic3.jpg" alt="">
-                        <h3>even &amp; odd</h3>
-                        <span class="price">$145,99</span>
-                    </a>
-                </div>
-                <div class="clear"></div>
             </div>
-            <div class="top_main">
-                <h2>best sellers of the month</h2>
-                <a href="#">show all</a>
-                <div class="clear"></div>
-            </div>
-            <!-- start grids_of_3 -->
-            <div class="grids_of_3">
-                <div class="grid1_of_3">
-                    <a href="details.html">
-                        <img src="images/pic4.jpg" alt="">
-                        <h3>buffalo decollete</h3>
-                        <span class="price">$145,99</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="details.html">
-                        <img src="images/pic5.jpg" alt="">
-                        <h3>even &amp; odd</h3>
-                        <span class="price">$185,99</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="details.html">
-                        <img src="images/pic6.jpg" alt="">
-                        <h3>buffalo decollete</h3>
-                        <span class="price">$145,99</span>
-                        <span class="price1 bg1">out of stock</span>
-                    </a>
-                </div>
-                <div class="clear"></div>
+            <div class="grid1_of_2 bg">
+                <h2>blog news</h2>
+                <?php
+                for($i=0; $i<count($blogIndex); $i++){
+                    echo " <div class='grid_date'>".$blogIndex[$i]." <div class='clear'></div></div>";
+                }
+                ?>
             </div>
             <div class="clear"></div>
-            <!-- start grids_of_2 -->
-            <div class="grids_of_2">
-                <div class="grid1_of_2">
-                    <div class="span1_of_2">
-                        <h2>free shipping</h2>
-                        <p>Free shipping is only available for our customers residing in ile-ife that is purchasing two and above of our goods but other customers outside ile-ife osun state will attract a token fee! place your order now!!!!</p>
-                    </div>
-                    <div class="span1_of_2" >
-                        <h2>testimonials</h2>
-                        <p>Your shoes were a hit! Since I have decided to get a pair with red and cream leather I thought I would send along a photo of the green and cream you just made me......they show up darker than real life but you remember them I am sure. Again, no worries on the timing and I really enjoy these shoes....they are incredibly comfortable and even though they are new....I had a 20 hour day and they were perfect. Hope all is well and the show was a success for you.</p>
-                    </div>
-                </div>
-                <div class="grid1_of_2 bg">
-                    <h2>blog news</h2>
-                    <div class="grid_date">
-                        <div class="date1">
-                            <h4>apr 01</h4>
-                        </div>
-                        <div class="date_text">
-                            <h4><a href="#"> Top 5 Adventures for Summer Sixteen ,</a></h4>
-                            <p>This summer, we’re living for the moment. There is nothing more thrilling than embarking on a weekend of adventure with a good group of friends and seeing what the weekend has to offer—carefree living starts now! Whether it be a festival, a day at the beach, exploring the city, surfing, or grabbing some roadside eats, we’re up for it all.</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid_date">
-                        <div class="date1">
-                            <h4>feb 01</h4>
-                        </div>
-                        <div class="date_text">
-                            <h4><a href="#"> A Weekend of Summer with ECCO ,,</a></h4>
-                            <p>The best shoes take you on the adventure of life, and make every journey more memorable than the last. When summer is in full swing, you never know how the day will unfold. So, this summer we’re throwing out the map and hitting the open road. There is nothing more thrilling than packing our bags and embarking on an unscripted adventure with the windows down, music cranked and a couple of friends in the back seat to enjoy the ride.</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid_date">
-                        <div class="date1">
-                            <h4>feb 01</h4>
-                        </div>
-                        <div class="date_text">
-                            <h4><a href="#"> The standard chunk of Lorem Ipsum used since ,,</a></h4>
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from </p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
         </div>
     </div>
+</div>
 </div>
 
 
