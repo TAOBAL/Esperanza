@@ -88,6 +88,7 @@ $number2 = count($myOrder);
             var me3 = '<?php echo $number2;?>';
             if (me1 == 0 && me == 0) {
                 document.getElementById('order').style.display = 'none';
+                document.getElementById('grandTotal').style.display = 'none';
             }
            if(me2 > 0){
                document.getElementById('checkout').style.display = 'none';
@@ -96,7 +97,14 @@ $number2 = count($myOrder);
             if(me3 > 0){
                 document.getElementById('placeorder').style.display = 'none';
                 document.getElementById('checkout').style.display = 'none';
+                document.getElementById('remove').style.display = 'none';
+                document.getElementById('edit').style.display = 'none';
             }
+            document.getElementById('grandTotal').innerHTML = "Grand Total #40000.00";
+        }
+        function edit(id){
+            document.getElementById('edit').style.display = 'none';
+            document.getElementById('save').style.display = 'block';
         }
     </script>
     <!-- start top_js_button -->
@@ -232,56 +240,9 @@ $number2 = count($myOrder);
             }
 
             ?>
-
-
-            <!--
-            <tr>
-                <td>img name</td>
-                <td style="text-indent: 400px">#6000</td>
-                <td style="text-indent: 10px">
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </td>
-                <td style="text-indent: 100px">#18000</td>
-            </tr><tr>
-                <td>img name</td>
-                <td style="text-indent: 400px">#6000</td>
-                <td style="text-indent: 10px">
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </td>
-                <td style="text-indent: 100px">#18000</td>
-            </tr><tr>
-                <td>img name</td>
-                <td style="text-indent: 400px">#6000</td>
-                <td style="text-indent: 10px">
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </td>
-                <td style="text-indent: 100px">#18000</td>
-            </tr><tr>
-                <td>img name</td>
-                <td style="text-indent: 400px">#6000</td>
-                <td style="text-indent: 10px">
-                    <select>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </td>
-                <td style="text-indent: 100px">#18000</td>
-            </tr>-->
         </tbody>
     </table>
+            <p id="grandTotal" style="padding-left: 650px"></p>
             <?php
             foreach($shippingAddress as $x => $x_value) {
                 echo $x . " " . $x_value . "<br>";
