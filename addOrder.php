@@ -1,5 +1,36 @@
 <?php
-include_once ('php/validate2.php');
+include_once ('php/validate.php');
+/*$key = "";
+if(isset($_GET['erty_noasd'])){
+    $key = $_GET['erty_noasd'];
+}else{
+    header('location:index.php');
+}*/
+$useremail = "";
+if(!isset($_SESSION['order'])) {
+    header('location:order.php');
+}else{
+    $useremail = $_SESSION['order'];
+}
+$user_id = $myvalidate->getUserId($useremail);
+$updateArray = array();
+$ofname = $olname = $oemail = $ophone = $address1 = $address2 = $city = $country = $state = $lga = "";
+if(!empty($_POST['save_changes']) && isset($_POST['save_changes'])){
+    $ofname = $_POST['ofname'];
+    $olname = $_POST['olname'];
+    $oemail = $_POST['oemail'];
+    $ophone = $_POST['ophone'];
+    $address1 = $_POST['address1'];
+    $address2 = $_POST['address2'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $state = $_POST['state'];
+    $lga = $_POST['lga'];
+    $updateArray = $myvalidate->orderDetails($user_id,$ofname, $olname, $oemail, $ophone,$address1, $address2, $city, $country, $state, $lga);
+}
+if(!isset($_SESSION['order'])) {
+    header('location:order.php');
+}
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -17,6 +48,7 @@ include_once ('php/validate2.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -57,12 +89,7 @@ include_once ('php/validate2.php');
                 <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
             <div class="log_reg">
-                <ul>
-                    <li><a href="profile.php" style="color: #57C5A0;text-decoration: none"><?php echo $getUser;?></a> </li>
-                    <span class="log"> </span>
-                    <li><a href="php/logout.php" style="color: #57C5A0;text-decoration: none">Logout</a> </li>
-                    <div class="clear"></div>
-                </ul>
+                    <?php echo $getDisplay;?>
             </div>
             <div class="web_search">
                 <form>
@@ -79,20 +106,20 @@ include_once ('php/validate2.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
-                <li class="active"><a href="index.php">Home</a></li>
-                <li class="dropdown"><a href="collection.php">products</a>
+                <li><a href="index.php">Home</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
-
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
-
                 <div class="clear"></div>
             </ul>
         </div>
@@ -142,12 +169,14 @@ include_once ('php/validate2.php');
             }
             ?>
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                <?php
-                foreach ($getUserArray as $x=>$x_value){
-                    $fieldName = $myvalidate->getField($x);
-                    echo "<label>$fieldName</label><input type='text' value='$x_value' class='form-control' disabled><br>";
-                }
-                ?>
+                <label>First Name</label>
+                <input type="text" name="ofname" value="<?php echo $ofname;?>" class="form-control"><br>
+                <label>Last Name</label>
+                <input type="text" name="olname" value="<?php echo $olname;?>" class="form-control"><br>
+                <label>E-mail</label>
+                <input type="email" name="oemail" value="<?php echo $oemail;?>" class="form-control"><br>
+                <label>Phone Number</label>
+                <input type="text" name="ophone" value="<?php echo $ophone;?>" class="form-control"><br>
                 <label>Address</label><br><br>
                 <label>Street Address</label>
                 <input type="text" class="form-control" name="address1" value="<?php echo $address1;?>" required=""><br>
@@ -155,7 +184,6 @@ include_once ('php/validate2.php');
                 <input type="text" name="address2" value="<?php echo $address2;?>" class="form-control"><br>
                 <label>City</label>
                 <input type="text" name="city" value="<?php echo $city;?>" class="form-control"><br>
-
                 <label>Select Country</label>
                 <select class="form-control" id="country" value="<?php echo $country;?>" name ="country"></select><br>
                 <label>Select State</label>
@@ -170,7 +198,7 @@ include_once ('php/validate2.php');
         </div><br><br>
 
         <div class="col-md-offset-8 col-md-3">
-            <input type="submit" value="Save Changes" name="save_changes" class="btnMain"><br><br>
+            <input type="submit" value="Check Out" name="save_changes" class="btnMain"><br><br>
         </div>
     </form>
 </div>
