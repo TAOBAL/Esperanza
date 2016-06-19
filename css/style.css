@@ -1794,6 +1794,31 @@ span.color7{
 	background: #57C5A0;
 	border: 1px solid #57c5a0;
 }
+.btn_form form input[type="button"]{
+	cursor:pointer;
+	display: inline-block;
+	font-family: 'Maven Pro', sans-serif;
+	background: #242424;
+	border: 1px solid #242424;
+	padding: 10px 20px;
+	outline: none;
+	color: #ffffff;
+	font-size: 1em;
+	text-transform: capitalize;
+	-webkit-appearance: none;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-o-border-radius: 2px;
+}
+.btn_form form input[type="button"]:hover{
+	background: #57C5A0;
+	border: 1px solid #57c5a0;
+}
 /* end description */
 /* start left_content_btm */
 .left_content_btm{
