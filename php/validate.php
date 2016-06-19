@@ -45,8 +45,8 @@ class validate{
         }
         return $this->responseArray;
     }
-    function loginUsers($email, $password)
-    {
+    
+    function loginUsers($email, $password){
         if (empty($email) || empty($password)) {
             $error = "All fields are required";
             $this->responseArray = array($error);
@@ -127,6 +127,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function getUserId($useremail){
         $userId = "";
         $query = $this->link->prepare("SELECT * FROM users WHERE email='$useremail'");
@@ -137,6 +138,7 @@ class validate{
         }
         return $userId;
     }
+    
     function orderDetails($user_id, $ofname, $olname, $oemail, $ophone,$strAdd, $wkAdd, $city, $country, $state, $lga){
         if(empty($ofname) || empty($olname) || empty($oemail)|| empty($ophone) || empty($strAdd) || empty($wkAdd) || empty($city) || empty($country) || empty($state) || empty($lga)){
             $this->responseArray = array("All fields are required");
@@ -170,6 +172,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function updateProfile($user_id, $fname, $lname, $phone, $oldpass, $newpass, $newpass1){
         if(empty($fname) || empty($lname)){
             $this->responseArray = array("First name and last name are required");
@@ -201,6 +204,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function getField($name){
         if($name != "E-mail") {
             $name = explode("_", $name);
@@ -210,6 +214,7 @@ class validate{
         }
         return $name;
     }
+    
     function contact_us($name, $email, $mobile, $subject){
         if(empty($name) || empty($email) || empty($mobile) || empty($subject)){
             $this->responseArray = array("All fields are required");
@@ -231,6 +236,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function loginAdmin($username, $password){
         if(empty($username) || empty($password)){
             $this->responseArray = array("All fields are required");
@@ -248,6 +254,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function uploadPhoto($type){
         $target_dir = "adminpost_images/";
         $uploadOK = 0;
@@ -294,6 +301,7 @@ class validate{
         }
         return $this->responseArray;
     }
+    
     function getPhotoName($name){
         $name = explode(",",$name);
         if(empty($name[1])){
@@ -303,6 +311,7 @@ class validate{
         }
         return $name;
     }
+    
     function AdminPost($title,$type, $desc, $price, $available, $ShoeType){
         if(empty($title)) {
             $this->responseArray = array("Shoe name or blog news title is required");
@@ -318,11 +327,11 @@ class validate{
                     }
                 }
                 if($type == "Blog") {
-                    $query = $this->link->prepare("INSERT INTO blog(blog_news_title, blog_news, blog_picture) VALUES (?,?,?)");
+                    $query = $this->link->prepare("INSERT INTO blog(blog_news_title, blog_news, picture) VALUES (?,?,?)");
                     $values = array($title,$desc, $uploadName);
                     $result = $query->execute($values);
                 }elseif($type == "Shoe"){
-                    $query = $this->link->prepare("INSERT INTO shoe(shoe_desc, shoe_type, shoe_picture, shoe_price, available_no) VALUES(?,?,?,?,?)");
+                    $query = $this->link->prepare("INSERT INTO shoe(shoe_desc, shoe_type, picture, shoe_price, available_no) VALUES(?,?,?,?,?)");
                     $values = array($title,$ShoeType, $uploadName, $price, $available);
                     $result = $query->execute($values);
                 }else{
@@ -337,73 +346,7 @@ class validate{
             }
         return $this->responseArray;
     }
-    function getShoes(){
-        $shoeDetailsArray = array();
-        $image_dir = "adminpost_images/";
-        $query = $this->link->prepare("SELECT * FROM shoe ORDER BY date_created ASC");
-        $query->execute();
-        $result = $query->fetchAll();
-        $rowCount = $query->rowCount();
-        while($rowCount > 0){
-            $rowCount--;
-            $shoe_desc = $result[$rowCount]['shoe_desc'];
-            $shoe_picture = $image_dir.$result[$rowCount]['shoe_picture'];
-            if($shoe_picture == "adminpost_images/Nil"){
-                $shoe_picture = "";
-            }else{
-                $shoe_picture = "<img src='$shoe_picture' width='200px' height='80px'>";
-            }
-            $shoe_price =$result[$rowCount]['shoe_price'];
-            $available_no = $result[$rowCount]['available_no'];
-            $shoe_type = $result[$rowCount]['shoe_type'];
-            $date_created  = $result[$rowCount]['date_created'];
-            $shoe_details = "<td>$shoe_desc</td><td>#$shoe_price</td><td>$available_no</td><td>$shoe_picture</td><td>$shoe_type</td><td>$date_created</td><td>Option</td>";
-            array_push($shoeDetailsArray, $shoe_details);
-        }
-        return $shoeDetailsArray;
-    }
-    function getBlogPost(){
-        $blogDetailsArray = array();
-        $image_dir = "adminpost_images/";
-        $query = $this->link->prepare("SELECT * FROM blog ORDER BY date_created ASC");
-        $query->execute();
-        $result = $query->fetchAll();
-        $rowCount = $query->rowCount();
-        while($rowCount > 0){
-            $rowCount--;
-            $blog_title = $result[$rowCount]['blog_news_title'];
-            $blog_news = $result[$rowCount]['blog_news'];
-            $blog_picture = $image_dir.$result[$rowCount]['blog_picture'];
-            if($blog_picture == "adminpost_images/Nil"){
-                $blog_picture = "";
-            }else{
-                $blog_picture = "<img src='$blog_picture' width='200px' height='80px'>";
-            }
-            $date_created  = $result[$rowCount]['date_created'];
-            $blogPost_details = "<td>$blog_title</td><td>$blog_news</td><td>$blog_picture</td><td>$date_created</td><td>Option</td>";
-            array_push($blogDetailsArray, $blogPost_details);
-        }
-        return $blogDetailsArray;
-    }
-    function getAllUsers(){
-        $usersDetailsArray = array();
-        $query = $this->link->prepare("SELECT * FROM users ORDER BY date_created ASC");
-        $query->execute();
-        $result = $query->fetchAll();
-        $rowCount = $query->rowCount();
-        while($rowCount > 0){
-            $rowCount--;
-            $fname = $result[$rowCount]['fname'];
-            $lname = $result[$rowCount]['lname'];
-            $email = $result[$rowCount]['email'];
-            $telephone = $result[$rowCount]['telephone'];
-            $gender = $result[$rowCount]['gender'];
-            $date_created  = $result[$rowCount]['date_created'];
-            $users_details = "<td>$fname</td><td>$lname</td><td>$email</td><td>$telephone</td><td>$gender</td><td>$date_created";
-            array_push($usersDetailsArray, $users_details);
-        }
-        return $usersDetailsArray;
-    }
+
     function getShoeByType($shoetype){
         $shoeTypeArrays = array();
         $image_dir = "adminpost_images/";
@@ -419,7 +362,7 @@ class validate{
         while($rowCount > 0){
             $rowCount--;
             $key = $result[$rowCount]['shoe_id'];
-            $shoe_image = $image_dir.$result[$rowCount]['shoe_picture'];
+            $shoe_image = $image_dir.$result[$rowCount]['picture'];
             $shoe_name = $result[$rowCount]['shoe_desc'];
             $shoe_price = $result[$rowCount]['shoe_price'];
             $shoe_details = "<a href='#' onclick='whereTo($key);'><img src='$shoe_image' alt=''><h3>$shoe_name</h3><span class='price'>#$shoe_price</span></a>";
@@ -450,7 +393,7 @@ class validate{
         $rowCount = $query->rowCount();
         while($rowCount > 0){
             $rowCount--;
-            $blog_image = $result[$rowCount]['blog_picture'];
+            $blog_image = $result[$rowCount]['picture'];
             if($blog_image == "Nil"){
                 $blog_images="";
             }else{
@@ -525,7 +468,7 @@ class validate{
             $shoe_name = $result[0]['shoe_desc'];
             $shoe_type = $result[0]['shoe_type'];
             $shoe_price = $result[0]['shoe_price'];
-            $shoe_photo = $image_dir.$result[0]['shoe_picture'];
+            $shoe_photo = $image_dir.$result[0]['picture'];
             $available_no = $result[0]['available_no'];
             for($i=1; $i<=$available_no; $i++){
                 $opt .='<option>'.$i.'</option>';
@@ -555,7 +498,7 @@ class validate{
             $key = $result[$rowCount]['shoe_id'];
             $shoe_name = $result[$rowCount]['shoe_desc'];
             $shoe_price = $result[$rowCount]['shoe_price'];
-            $shoe_photo = $image_dir.$result[$rowCount]['shoe_picture'];
+            $shoe_photo = $image_dir.$result[$rowCount]['picture'];
             $related = "<div class='left_img'><img src='$shoe_photo' alt=''></div>".
                     "<div class='left_text'><p><a href='#' onclick='whereTo($key)'>$shoe_name</a></p><span class='line'>#40,000.00</span><span>$shoe_price</span></div>";
             array_push($relatedProduct, $related);
@@ -598,19 +541,19 @@ class validate{
     }
     function orderedShoe($id, $quantity){
         $firstOrdered = array();
-        /*$remove = "";*/
         $order_status = "";
         $image_dir = "adminpost_images/";
+        $grandTotal = 0;
             $query = $this->link->prepare("SELECT * FROM shoe WHERE shoe_id='$id'");
             $query->execute();
             $result = $query->fetchAll();
             if ($result) {
                 $shoeName = $result[0]['shoe_desc'];
                 $shoePrice = $result[0]['shoe_price'];
-                $shoePhoto = $image_dir . $result[0]['shoe_picture'];
+                $shoePhoto = $image_dir . $result[0]['picture'];
                 $totalPrice = $shoePrice * $quantity;
-                $myShoeDetails = "<td><img src='$shoePhoto'><br>$shoeName</b></td><td style='text-indent: 400px'>#$shoePrice</td>" .
-                    "<td style='text-indent: 10px'><select><option>$quantity</option></select></td><td style='text-indent: 100px'>#$totalPrice</td>";
+                $myShoeDetails = "<td><img src='$shoePhoto'><br>$shoeName <a id='remove' href=''>Remove</a> </td><td style='text-indent: 400px'>#$shoePrice</td>" .
+                    "<td style='text-indent: 10px'><select><option>$quantity</option></select><a id='edit'. href='#' onclick='edit();'>Edit</a><input type='submit' value='Save' style='display:none' id='save'></td><td style='text-indent: 100px' id='total'>#$totalPrice</td>";
                 array_push($firstOrdered, $myShoeDetails);
             }
         return $firstOrdered;
@@ -670,6 +613,55 @@ class validate{
             
         }
         return $placeorderArray;
+    }
+    function getColumnNames($table_name){
+        $mytable = array();
+        $query = $this->link->prepare("SHOW COLUMNS FROM " . $table_name);
+        $query->execute();
+        $result = $query->fetchAll();
+        if ($result) {
+            foreach ($result as $keyOut => $array) {
+                foreach ($array as $keyIn => $value) {
+                    if ($keyIn === 'Field') {
+                        if (!(int)$keyIn) {
+                            array_push($mytable, $value);
+                        }
+                    }
+                }
+            }
+        } else {
+            $error = "Welcome to Esperanza Admin Page, Kindly click on any of the links";
+            array_push($mytable, $error);
+        }
+        return $mytable;
+    }
+    function getDisplay($table_name){
+        $displayArray = array();
+        $fieldsArray = array();
+        $myfield = $myfield1 = "";
+        $image_dir = "adminpost_images/";
+        $myDisplay = "";
+        $fieldsArray = $this->getColumnNames($table_name);
+        $sql = "SELECT * FROM ".$table_name." ORDER BY date_created ASC";
+        $query = $this->link->prepare($sql);
+        $query->execute();
+        $result = $query->fetchAll();
+        $rowCount = $query->rowCount();
+        while($rowCount > 0){
+            $rowCount--;
+            for($i=0; $i<count($fieldsArray); $i++){
+                $myfield = $fieldsArray[$i];
+                $myfield1 = $result[$rowCount][$myfield];
+                if($myfield == "picture"){
+                    $myfield1 = $image_dir.$myfield1;
+                    $myfield1 = "<img src='$myfield1' width='100' height='100'>";
+                }
+                $myDisplay .= "<td>$myfield1</td>";
+            }
+            array_push($displayArray, $myDisplay);
+            $myDisplay = "";
+        }
+        return $displayArray;
     }
 }
 
