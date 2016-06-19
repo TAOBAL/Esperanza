@@ -22,6 +22,7 @@ include_once ('php/validate.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -79,20 +80,21 @@ include_once ('php/validate.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
-                <li class="active"><a href="index.php"></a></li>
-                <li class="active"><a href="index.php">Home</a></li>
-                <li class="dropdown"><a href="collection.php">products</a>
+                <li><a href="index.php"></a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
-
                 <div class="clear"></div>
             </ul>
         </div>
@@ -131,70 +133,25 @@ include_once ('php/validate.php');
         <div class="main">
             <div class="project">
                 <div class="cont span_2_of_3">
-                  <div class="about-left">
-                        <h3><a href="#" style="font-weight: bolder">Nicole Richie's love of Kimono Dresses will never Die</a></h3>
-                    </div>
-                    <div class="blog-img"><a href="project.html"><img src="images/blog/img1.jpg"></a></div>
-                    <div class="blog">
-                        <div class="blogsidebar span_1_of_blog">
-                            <ul class="blog-list">
-                                <li>Posted on<br>January 20, 2014</li>
-                                <li>Tags<br><a href="#">Website</a>&nbsp; | &nbsp; <a href="#">Design</a></li>
-                                <li>Comments<br><a href="#">8</a></li>
-                            </ul>
-                        </div>
-                        <div class="cont span_2_of_blog">
-                            <p class="para">Google "Nicole Richie style" and more than 11 million hits pop up about the cultural icon, including a number of Tumblrs devoted to her look and interviews with Richie herself on DIY-ing her style. Needless to say, she's come along way from the early '00s and racked up a ton of Stans along the way. It's no wonder, then, that Revolve, the online shopping behemoth, was eager to team up with Richie to create House of Harlow 1960 x Revolve, an exclusive collection launching today.</p>
-                            <p class="para">"Revolve has been supporting Nicole since her first House of Harlow 1960 collection," says co­founder and CEO Michael Mente. "We look forward to taking the next big step in elevating our brands together. Nicole is a fashion icon that all our girls look to for inspiration."</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="about-left">
-                        <h3><a href="#" style="font-weight: bolder">Who is this House of Hallow Girl?</a></h3>
-                    </div>
-                    <div class="blog-img1"><a href="project.html"><img src="images/blog/img2.jpg" alt=""></a></div>
-                    <div class="blog">
-                        <div class="blogsidebar span_1_of_blog">
-                            <ul class="blog-list">
-                                <li>Posted on<br>January 20, 2014</li>
-                                <li>Tags<br><a href="#">Website</a>&nbsp; | &nbsp; <a href="#">Design</a></li>
-                                <li>Comments<br><a href="#">8</a></li>
-                            </ul>
-                        </div>
-                        <div class="cont span_2_of_blog">
-                            <p class="para">I am really inspired by my girlfriends. I have an eclectic group of friends, all coming from different walks of life, and so they are the people that I'm around the most and I care about their opinions. They are the people I look up to. I often thought: What do my girlfriends and I want to wear in the summer? What is our summer look? And by the way, we also have very different styles. For example, Katherine Power at Who What Wear. Power is really sophisticated and we do not have the same style at all, you know? But she is somebody that I ask about—like, what version of this would Katherine wear? Or what version would Kelly wear?.</p>
-                            <p class="para">My girlfriends and I go through each other's closets all the time. A few of my closest girlfriends are stylists, so we just love going into each other's closets to try on things. We often just go in my closet and try on pieces that I already have, and I already have my own way of styling them, you know? And then they'll go and do their interpretation of it.</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="about-left">
-                        <h3><a href="#" style="font-weight: bolder">Watch these SuperHeroes Dancers Performs in Louboutins</a></h3>
-                    </div>
-                    <div class="blog-img1"><a href="project.html"><img src="images/blog/img4.jpg" alt=""></a></div>
-                    <div class="blog">
-                        <div class="blogsidebar span_1_of_blog">
-                            <ul class="blog-list">
-                                <li>Posted on<br><a href="#">January 20, 2014</a></li>
-                                <li>Tags<br><a href="#">Website</a>&nbsp; | &nbsp; <a href="#">Design</a></li>
-                                <li>Comments<br><a href="#">8</a></li>
-                            </ul>
-                        </div>
-                        <div class="cont span_2_of_blog">
-                            <p class="para">Inspired by A Chorus Line, the video spotlights a group of dancers rehearsing Li's demanding choreography until one collapses of exhaustion (ironically it's a male dancer in sneakers rather than one of the women twirling around in six-inch heels). The tongue-in-cheek video manages to make dancing in studded stilettos, heeled booties, and platforms look like a walk in the park and will undoubtedly make you want to a) invest in a pair of heels from Louboutin's fall 2016 collection or b) sign up for a dance class stat. </p>
-                            <p class="para">Taking into account the Internet's everlasting obsession with choreography videos, Christian Louboutin merged dance with its iconic red sole heels for a new short film titled "La Répétition." Tapping choreographer, dancer, and filmmaker Blanca Li, the new video features a group of dancers performing in Louboutin's fall 2016 collection—what, like it's hard? .</p>
-
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-
+                    <?php
+                        for($i=0; $i<count($myBlogPost); $i++){
+                            echo $myBlogPost[$i];
+                        }
+                    ?>
                 </div>
                 <div class="rsidebar span_1_of_3">
                     <ul class="sidebar" style="background-color: white; padding-left: 30px;height: 200px">
                         <h3>Categories</h3>
-                        <li><a href="#">Shoes</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
+                        <!--<li><a href="#">Shoes</a></li>
                         <li><a href="#">Sandals</a></li>
                         <li><a href="#">Heels and Wedges</a></li>
-                        <li><a href="#">Bags and African Fabrics</a></li>
+                        <li><a href="#">Bags and African Fabrics</a></li>-->
 
                     </ul>
                     <div class="archive">
@@ -203,35 +160,21 @@ include_once ('php/validate.php');
                     <div class="recent-news">
                         <h3>Recent News</h3>
                         <ul class="news">
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Phasellus a enim venenatis</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Vivamus cursus diam sit amet cursus</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Phasellus a enim venenatis</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
+                            <?php
+                                for($i=0; $i<count($recentPostArray); $i++){
+                                    echo "<li>".$recentPostArray[$i]."</li>";
+                                }
+                            ?>
                         </ul>
                     </div>
                     <div class="recent-news">
                         <h3>Recent Comments</h3>
                         <ul class="news">
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Phasellus a enim venenatis</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Vivamus cursus diam sit amet cursus</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
-                            <li><div class="date">30 <br>Nov</div>
-                                <div class="desc"><h4><a href="#">Phasellus a enim venenatis</a></h4><p class="para">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonumm</p> </div>
-                                <div class="clear"></div>
-                            </li>
+                            <?php
+                            for($i=0; $i<count($recentPostArray); $i++){
+                                echo "<li>".$recentPostArray[$i]."</li>";
+                            }
+                            ?>
                         </ul>
                     </div>
 
