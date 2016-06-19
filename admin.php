@@ -11,10 +11,6 @@ if(isset($_POST['admin_post'])){
     $ShoeType = $_POST['ShoeType'];
     $adminPostArray = $myvalidate->AdminPost($title,$type, $desc, $price, $available, $ShoeType);
 }
-$AllShoes = $blogPost = $AllUsers = array();
-$AllShoes = $myvalidate->getShoes();
-$blogPost = $myvalidate->getBlogPost();
-$AllUsers = $myvalidate->getAllUsers();
 $adminLinks = array();
 $blogLink = "Blog";
 $usersLink = "Users";
@@ -22,6 +18,14 @@ $ordersLink = "Orders";
 $adminLink = "Admin";
 $shoeLink = "Shoes";
 $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adminLink, "9"=>$shoeLink);
+$getTable = "";
+if(isset($_GET['pyeuf?_sdyu'])){
+    $getTable = $_GET['pyeuf?_sdyu'];
+}
+$tableheader = array();
+$tableheader = $myvalidate->getColumnNames($getTable);
+$display = array();
+$display = $myvalidate->getDisplay($getTable);
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -41,14 +45,23 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
     <!-- Custom Fonts -->
     <link href="css/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="js/linking.js"></script>
+    <script>
+        function adminPost() {
+            var dem = "<?php echo $getTable;?>";
+            if(dem == "blog" || dem == "shoe"){
+                document.getElementById('myform').style.display = "block";
+                document.getElementById('myform1').style.display = "block";
+            }
+        }
+    </script>
 </head>
 
-<body style=" background-color: #f4f4f4">
+<body style=" background-color: #f4f4f4" onload="adminPost();">
 <div class="top_bg" style="height: 70px;position: fixed;width: 100%;z-index: 1">
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
+                <a href="admin.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
         </div>
     </div>
@@ -85,7 +98,7 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                 }
                 ?>
             </span>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" enctype="multipart/form-data">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" enctype="multipart/form-data" id="myform" style="display: none">
                 <select class="pull-right btn " name="type">
                     <option>Blog</option>
                     <option>Shoe</option>
@@ -105,16 +118,53 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                 <input type="submit" name="admin_post" class="btn btn-default btn-primary  pull-right" value="Post"><br>
             </form>
              </div>
-            <div class="col-md-3" style="margin-top: 190px">
+            <div class="col-md-3" style="margin-top: 190px; display: none" id="myform1">
             <img id="blah" src="#" alt="your image"/>
             </div>
         </div><br><br>
             <div class="row content-container">
+                <div class="col-md-12 table-responsive tab1">
+                            <span>
+                            <?php
+                            $count = count($display);
+                            if($count > 0) {
+                                echo count($display) . " " . $getTable;
+                            }
+                             ?>
+                            </span>
+                    <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
+                        <thead class='primary' >
+                        <tr>
+                            <?php
+                                for($i=0; $i<count($tableheader); $i++){
+                                    echo "<th>".$tableheader[$i]."</th>";
+                                }
+                            ?>
+                            <!--<th>Shoe Description</th>
+                            <th>Shoe Price</th>
+                            <th>Shoe Available Number</th>
+                            <th>Photo</th>
+                            <th>Shoe Type</th>
+                            <th>Date Posted</th>
+                            <th>Option</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                      for($i=0; $i<count($display); $i++){
+                            echo "<tr>".$display[$i]."</tr>";
+                        }
+
+                        ?>
+                        </tbody>
+                    </table>
+                </div><br><br>
+           <!-- <div class="row content-container">
                         <div class="col-md-12 table-responsive tab1">
                             <span>
                              <?php
-                                echo count($AllShoes)." Available Shoes";
-                             ?>
+/*                                echo count($AllShoes)." Available Shoes";
+                             */?>
                             </span>
                         <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
                             <thead class='primary' >
@@ -130,19 +180,19 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                             </thead>
                             <tbody>
                                 <?php
-                                    for($i=0; $i<count($AllShoes); $i++){
+/*                                    for($i=0; $i<count($AllShoes); $i++){
                                     echo "<tr>".$AllShoes[$i]."</tr>";
             }
 
-                                ?>
+                                */?>
                             </tbody>
                         </table>
-              </div><br><br>
-              <div class="col-md-12 table-responsive">
+              </div><br><br>-->
+             <!-- <div class="col-md-12 table-responsive">
                     <span>
                         <?php
-                        echo count($blogPost)." blog Posts";
-                        ?>
+/*                        echo count($blogPost)." blog Posts";
+                        */?>
                     </span>
                   <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
                         <thead class='primary' >
@@ -156,11 +206,11 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                         </thead>
                         <tbody>
                             <?php
-                            for($i=0; $i<count($blogPost); $i++){
+/*                            for($i=0; $i<count($blogPost); $i++){
                                 echo "<tr>".$blogPost[$i]."</tr>";
                             }
 
-                            ?>
+                            */?>
                         </tbody>
                   </table>
 
@@ -169,8 +219,8 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
 
                             <span>
                                <?php
-                               echo count($AllUsers)." Users";
-                               ?>
+/*                               echo count($AllUsers)." Users";
+                               */?>
                             </span>
                     <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
                         <thead class='primary' >
@@ -185,11 +235,11 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                         </thead>
                         <tbody>
                         <?php
-                        for($i=0; $i<count($AllUsers); $i++){
+/*                        for($i=0; $i<count($AllUsers); $i++){
                             echo "<tr>".$AllUsers[$i]."</tr>";
                         }
 
-                        ?>
+                        */?>
                         </tbody>
                     </table>
         </div>
@@ -197,8 +247,8 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
 
                             <span>
                                <?php
-                               echo count($AllAdmin)." Admin";
-                               ?>
+/*                               echo count($AllAdmin)." Admin";
+                               */?>
                             </span>
                     <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
                         <thead class='primary' >
@@ -213,11 +263,11 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                         </thead>
                         <tbody>
                         <?php
-                        for($i=0; $i<count($AllUsers); $i++){
+/*                        for($i=0; $i<count($AllUsers); $i++){
                             echo "<tr>".$AllUsers[$i]."</tr>";
                         }
 
-                        ?>
+                        */?>
                         </tbody>
                     </table>
         </div>
@@ -225,8 +275,8 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
 
                             <span>
                                <?php
-                               echo count($AllContactUs)." ContactUs";
-                               ?>
+/*                               echo count($AllContactUs)." ContactUs";
+                               */?>
                             </span>
                     <table id='table_1' class='table table-striped table-bordered table-hover' cellspacing='0' width='100%'>
                         <thead class='primary' >
@@ -241,14 +291,14 @@ $adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adm
                         </thead>
                         <tbody>
                         <?php
-                        for($i=0; $i<count($AllUsers); $i++){
+/*                        for($i=0; $i<count($AllUsers); $i++){
                             echo "<tr>".$AllUsers[$i]."</tr>";
                         }
 
-                        ?>
+                        */?>
                         </tbody>
                     </table>
-        </div>
+        </div>-->
         </div>
     </div>
   </div>
