@@ -16,6 +16,7 @@ include_once ('php/validate.php');
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <link type="text/css" rel="stylesheet" href="css/jquery.mmenu.all.css" />
     <script type="text/javascript" src="js/jquery.mmenu.js"></script>
+    <script type="text/javascript" src="js/linking.js"></script>
     <script type="text/javascript">
         //	The menu on the left
         $(function() {
@@ -73,21 +74,21 @@ include_once ('php/validate.php');
     <div class="header_btm">
         <div class="menu">
             <ul>
-                <li class="active"><a href="index.php"></a></li>
-                <li class="active"><a href="index.php">Home</a></li>
-                <li class="dropdown"><a href="collection.php">products</a>
+                <li><a href="index.php"></a></li>
+                <li><a href="index.php">Home</a></li>
+                <li class="dropdown"><a href="product.php">products</a>
                     <ul class="dropdown-content">
-                        <li><a href="#">flat</a></li>
-                        <li><a href="#">heels</a></li>
-                        <li><a href="#">sandals</a></li>
-                        <li><a href="#">bags &amp African fabrics</a></li>
+                        <?php
+                        foreach($shoeLinks as $x => $x_value){
+                            $key = $x;
+                            echo "<li><a href='#' onclick='getKey($key);'>".$x_value."</a></li>";
+                        }
+                        ?>
                     </ul>
                 </li>
-
                 <li><a href="blog.php">blog</a></li>
                 <li><a href="HowitWorks.php">How it Works</a></li>
                 <li><a href="contact.php">Contact</a></li>
-
                 <div class="clear"></div>
             </ul>
         </div>
@@ -273,62 +274,24 @@ include_once ('php/validate.php');
             </div>
             <!-- start grids_of_3 -->
             <div class="grids_of_3">
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic1.jpg" alt=""/>
-                        <h3>even & odd</h3>
-                        <span class="price">#5000</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic2.jpg" alt=""/>
-                        <h3>buffalo decollete</h3>
-                        <span class="price">#6000</span>
-                        <span class="price1 bg">on sale</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic3.jpg" alt=""/>
-                        <h3>even & odd</h3>
-                        <span class="price">#5000</span>
-                    </a>
-                </div>
+                <?php
+                $count = 0;
+                $div =  "<div class='grids_of_3'>";
+                $div2 = "<div class='clear'></div></div>";
+                for($i=0;$i<count($getAllShoes); $i++){
+                    $count++;
+                    if($i>5){
+                        break;
+                    }
+                    echo "<div class='grid1_of_3'>".$getAllShoes[$i]." </div>";
+                    if($count%3==0){
+                        echo $div2.$div;
+                    }
+
+                }
+                ?>
                 <div class="clear"></div>
             </div>
-            <div class="top_main">
-                <h2>Trending</h2>
-                <a href="collection.php">show all</a>
-                <div class="clear"></div>
-            </div>
-            <!-- start grids_of_3 -->
-            <div class="grids_of_3">
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic4.jpg" alt=""/>
-                        <h3>buffalo decollete</h3>
-                        <span class="price">$145,99</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic5.jpg" alt=""/>
-                        <h3>even & odd</h3>
-                        <span class="price">$185,99</span>
-                    </a>
-                </div>
-                <div class="grid1_of_3">
-                    <a href="#">
-                        <img src="images/pic6.jpg" alt=""/>
-                        <h3>buffalo decollete</h3>
-                        <span class="price">$145,99</span>
-                        <span class="price1 bg1">out of stock</span>
-                    </a>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
             <!-- start grids_of_2 -->
             <div class="grids_of_2">
                 <div class="grid1_of_2">
@@ -343,26 +306,12 @@ include_once ('php/validate.php');
                 </div>
                 <div class="grid1_of_2 bg">
                     <h2>blog news</h2>
-                    <div class="grid_date">
-                        <div class="date1">
-                            <h4>apr 01</h4>
-                        </div>
-                        <div class="date_text">
-                            <h4><a href="#"> Top 5 Adventures for Summer Sixteen ,</a></h4>
-                            <p>This summer, we’re living for the moment. There is nothing more thrilling than embarking on a weekend of adventure with a good group of friends and seeing what the weekend has to offer—carefree living starts now! Whether it be a festival, a day at the beach, exploring the city, surfing, or grabbing some roadside eats, we’re up for it all.</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="grid_date">
-                        <div class="date1">
-                            <h4>feb 01</h4>
-                        </div>
-                        <div class="date_text">
-                            <h4><a href="#"> A Weekend of Summer with ECCO ,,</a></h4>
-                            <p>The best shoes take you on the adventure of life, and make every journey more memorable than the last. When summer is in full swing, you never know how the day will unfold. So, this summer we’re throwing out the map and hitting the open road. There is nothing more thrilling than packing our bags and embarking on an unscripted adventure with the windows down, music cranked and a couple of friends in the back seat to enjoy the ride.</p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
+                   <!-- <div class="grid_date">-->
+                        <?php
+                        for($i=0; $i<count($blogIndex); $i++){
+                            echo " <div class='grid_date'>".$blogIndex[$i]." <div class='clear'></div></div>";
+                        }
+                        ?>
                 </div>
                 <div class="clear"></div>
             </div>
