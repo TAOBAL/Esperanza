@@ -22,6 +22,10 @@ function getAdminLink(ids){
         ids = "admin";
     }else if(ids==9){
         ids = "shoe";
+    }else if(ids==10){
+        ids = "contact_us";
+    }else if(ids==11){
+        ids = "ordering_details";
     }
     window.location = 'admin.php?pyeuf?_sdyu='+ids;
 }
