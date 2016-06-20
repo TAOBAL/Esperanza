@@ -1,5 +1,11 @@
 <?php
 include_once ('php/validate.php');
+$adminUsername = "";
+if(isset($_SESSION['adminUsername'])){
+    $adminUsername = $_SESSION['adminUsername'];
+}else{
+    header('location:adminLogin.php');
+}
 $type = $desc = $price = $available = $ShoeType = $title = "";
 $adminPostArray = array();
 if(isset($_POST['admin_post'])){
@@ -11,13 +17,22 @@ if(isset($_POST['admin_post'])){
     $ShoeType = $_POST['ShoeType'];
     $adminPostArray = $myvalidate->AdminPost($title,$type, $desc, $price, $available, $ShoeType);
 }
+$admin_user = $admin_pass = $option = "";
+if(!empty($_POST['editAdmin']) && isset($_POST['editAdmin'])){
+    $option = $_POST['adminOption'];
+    $admin_user = $_POST['admin_user'];
+    $admin_pass = $_POST['admin_pass'];
+    $adminPostArray = $myvalidate->editAdmin($option, $admin_user, $admin_pass);
+}
 $adminLinks = array();
 $blogLink = "Blog";
 $usersLink = "Users";
 $ordersLink = "Orders";
 $adminLink = "Admin";
 $shoeLink = "Shoes";
-$adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adminLink, "9"=>$shoeLink);
+$contact = "Contact Us";
+$address = "Addresses";
+$adminLinks = array("5"=>$blogLink, "6"=>$usersLink, "7"=>$ordersLink, "8"=>$adminLink, "9"=>$shoeLink, "10"=>$contact, "11"=>$address);
 $getTable = "";
 if(isset($_GET['pyeuf?_sdyu'])){
     $getTable = $_GET['pyeuf?_sdyu'];
@@ -26,6 +41,16 @@ $tableheader = array();
 $tableheader = $myvalidate->getColumnNames($getTable);
 $display = array();
 $display = $myvalidate->getDisplay($getTable);
+function tableName($table){
+    $table = explode("_", $table);
+    $tableCount = count($table);
+    if($tableCount > 1){
+        $table = $table[0]." ".$table[1];
+    }else{
+        $table = $table[0];
+    }
+    return strtoupper($table);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
@@ -48,9 +73,14 @@ $display = $myvalidate->getDisplay($getTable);
     <script>
         function adminPost() {
             var dem = "<?php echo $getTable;?>";
-            if(dem == "blog" || dem == "shoe"){
-                document.getElementById('myform').style.display = "block";
+            if(dem == "blog"){
+                document.getElementById('blog').style.display = "block";
                 document.getElementById('myform1').style.display = "block";
+            }else if(dem == "shoe"){
+                document.getElementById('shoe').style.display = "block";
+                document.getElementById('myform1').style.display = "block";
+            }else if(dem == "admin"){
+                document.getElementById('admin').style.display = "block";
             }
         }
     </script>
@@ -62,6 +92,14 @@ $display = $myvalidate->getDisplay($getTable);
         <div class="header">
             <div class="logo">
                 <a href="admin.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
+            </div>
+            <div class="log_reg">
+                 <ul>
+                    <li><a href='admin.php' style='color: #57C5A0'><?php echo $adminUsername;?></a> </li>
+                     <span class='log'>  </span>
+                    <li><a href='php/adminLogout.php' style='color: #57C5A0'>Logout</a> </li>
+                    <div class='clear'></div>
+                 </ul>
             </div>
         </div>
     </div>
@@ -78,11 +116,6 @@ $display = $myvalidate->getDisplay($getTable);
                        echo "<li><a href='#' onclick='getAdminLink($key);'>".$x_value."</a></li>";
                    }
                    ?>
-                  <!-- <li><a href="#" class="link" >Blog</a></li>
-                   <li><a href="#" class="link"  >Users</a></li>
-                   <li><a href="#" class="link"  >Orders</a></li>
-                   <li><a href="#" class="link"  >Admin</a></li>
-                   <li><a href="#" class="link"  >Shoes</a></li>-->
                </ul>
 
             </div>
@@ -93,14 +126,27 @@ $display = $myvalidate->getDisplay($getTable);
             <div class="col-md-9"style="margin-top: 80px">
                 <span>
                 <?php
+                    echo "<label style='font-size: 30px'>".tableName($getTable)."</label>";
                 for($i=0; $i<count($adminPostArray); $i++){
                     echo $adminPostArray[$i];
                 }
                 ?>
             </span>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" enctype="multipart/form-data" id="myform" style="display: none">
+                <!-- form for admin to post blog news -->
+                <form method="post" action="admin.php?pyeuf?_sdyu=<?php echo $getTable;?>" enctype="multipart/form-data" id="blog" style="display: none">
+                    <select class="pull-right btn " name="type">
+                        <option>Blog</option>
+                    </select><br><br><br>
+                    <input type="text" class="form-control" name="title" placeholder="Blog Title"><br>
+                <textarea class="form-control" rows="7"  name="desc">
+                </textarea><br>
+                    <input type="file" onchange="readURL(this)" name="image"><br>
+                    <input type="submit" name="admin_post" class="btn btn-default btn-primary  pull-right" value="Post"><br>
+                </form>
+
+                <!-- Form for admin to upload shoe -->
+            <form method="post" action="admin.php?pyeuf?_sdyu=<?php echo $getTable;?>" enctype="multipart/form-data" id="shoe" style="display: none">
                 <select class="pull-right btn " name="type">
-                    <option>Blog</option>
                     <option>Shoe</option>
                 </select><br><br><br>
                 <select class="pull-right btn" name="ShoeType">
@@ -109,14 +155,24 @@ $display = $myvalidate->getDisplay($getTable);
                     <option>Sandals</option>
                     <option>Bags and African Fabrics</option>
                 </select><br><br><br>
-                <input type="text" class="form-control" name="title" placeholder="Blog Title or Shoe description"><br>
-                <textarea class="form-control" rows="7"  name="desc">
-                </textarea><br>
+                <input type="text" class="form-control" name="title" placeholder="Shoe Name"><br>
                 <input type="file" onchange="readURL(this)" name="image"><br>
                 <input type="text" placeholder="Price" name="price">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="text" placeholder="Available" name="available"><br>
                 <input type="submit" name="admin_post" class="btn btn-default btn-primary  pull-right" value="Post"><br>
             </form>
+
+                <!-- Form to add an admin -->
+                <form method="post" action="admin.php?pyeuf?_sdyu=<?php echo $getTable;?>" enctype="multipart/form-data" id="admin" style="display: none">
+                    <select class="pull-right btn " name="adminOption">
+                        <option>Add</option>
+                        <option>Reset Password</option>
+                        <option>Delete</option>
+                    </select><br><br><br>
+                    <input type="text" class="form-control" name="admin_user" placeholder="Admin Username"><br>
+                    <input type="text" class="form-control" name="admin_pass" placeholder="Admin Password"><br>
+                    <input type="submit" name="editAdmin" class="btn btn-default btn-primary  pull-right" value="Submit"><br>
+                </form>
              </div>
             <div class="col-md-3" style="margin-top: 190px; display: none" id="myform1">
             <img id="blah" src="#" alt="your image"/>
