@@ -35,7 +35,7 @@ if(!empty($_POST['admin_login']) && isset($_POST['admin_login'])){
     <div class="wrap">
         <div class="header">
             <div class="logo">
-                <a href="index.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
+                <a href="admin.php"><img src="images/col1.png" width="150px" height="50px" alt=""/></a>
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@ if(!empty($_POST['admin_login']) && isset($_POST['admin_login'])){
     </span><br><br>
             <input type="text" placeholder="Username" class="form-control" name="ausername" value="<?php echo $ausername;?>" >
        <br><br>
-            <input type="text" placeholder="Password" class="form-control" name="apassword" value="<?php echo $apassword;?>"><br>
+            <input type="password" placeholder="Password" class="form-control" name="apassword" value="<?php echo $apassword;?>"><br>
         <input type="submit" value="Login" class="btn btn-success" style="margin-left: 120px" name="admin_login">
     </div>
 </form>
