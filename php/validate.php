@@ -241,12 +241,12 @@ class validate{
         if(empty($username) || empty($password)){
             $this->responseArray = array("All fields are required");
         }else{
-            $query = $this->link->prepare("SELECT * FROM admin WHERE admin_username='$username' AND admin_password='$password'");
+            $query = $this->link->prepare("SELECT * FROM admin WHERE username='$username' AND password='$password'");
             $query->execute();
             $result = $query->fetchAll();
             if($result){
-                /*session_start();
-                $_SESSION['email'] = $username;*/
+                session_start();
+                $_SESSION['adminUsername'] = $username;
                 header('location:admin.php');
             }else{
                 $this->responseArray = array("Invalid login username and password");
@@ -338,7 +338,8 @@ class validate{
                     $this->responseArray = array("Selected type not found");
                 }
                 if($result){
-                    header('location:admin.php');
+                    $redirect = strtolower($type);
+                    header('location:admin.php?pyeuf?_sdyu='.$redirect);
                     $this->responseArray = array($type."Post was successfully uploaded");
                 }else{
                     $this->responseArray = array("Selected type not or Post uploaded unsuccessfully");
@@ -624,6 +625,9 @@ class validate{
                 foreach ($array as $keyIn => $value) {
                     if ($keyIn === 'Field') {
                         if (!(int)$keyIn) {
+                            if($value == "password"){
+                                $value = "";
+                            }
                             array_push($mytable, $value);
                         }
                     }
@@ -649,19 +653,90 @@ class validate{
         $rowCount = $query->rowCount();
         while($rowCount > 0){
             $rowCount--;
+
             for($i=0; $i<count($fieldsArray); $i++){
                 $myfield = $fieldsArray[$i];
-                $myfield1 = $result[$rowCount][$myfield];
+                if($myfield == ""){
+                    $myfield1 = "";
+                }else {
+                    $myfield1 = $result[$rowCount][$myfield];
+                }
                 if($myfield == "picture"){
                     $myfield1 = $image_dir.$myfield1;
                     $myfield1 = "<img src='$myfield1' width='100' height='100'>";
                 }
+
                 $myDisplay .= "<td>$myfield1</td>";
             }
             array_push($displayArray, $myDisplay);
             $myDisplay = "";
         }
         return $displayArray;
+    }
+    function editAdmin($type, $username, $password){
+        $editAdminArray = array();
+        if($type == "Add"){
+            if(empty($username) || empty($password)){
+                $error = "username and password is required for admin creation";
+                $editAdminArray = array($error);
+            }else {
+                $query = $this->link->prepare("SELECT * FROM admin WHERE username='$username'");
+                $query->execute();
+                $getResult = $query->fetchAll();
+                if ($getResult) {
+                    $error = "Admin with username " .$username . " already exist";
+                    $editAdminArray = array($error);
+                } else {
+                    $query = $this->link->prepare("INSERT INTO admin(username, password) VALUES (?,?)");
+                    $values = array($username, $password);
+                    $result = $query->execute($values);
+                    if ($result) {
+                        $error = "Admin added successfully";
+                        $editAdminArray = array($error);
+                    } else {
+                        $error = "Admin creation unsuccessful";
+                        $editAdminArray = array($error);
+                    }
+                }
+            }
+        }elseif($type=="Reset Password"){
+            if(empty($username) || empty($password)){
+                $error = "username and password is required to reset an admin";
+                $editAdminArray = array($error);
+            }else {
+                $query = $this->link->prepare("UPDATE admin SET password='$password' WHERE username='$username'");
+                $query->execute();
+                $result = $query->rowCount() ? true : false;
+                if ($result == true) {
+                    $error = $username . " password was reset successfully";
+                    $editAdminArray = array($error);
+                } else {
+                    $error = $username . " password reset unsuccessful";
+                    $editAdminArray = array($error);
+                }
+            }
+
+        }elseif($type=="Delete"){
+            if(empty($username)){
+                $error = "You need to specify an admin username to be deleted";
+                $editAdminArray = array($error);
+            }else {
+                $query = $this->link->prepare("DELETE FROM admin WHERE username='$username' AND status='0'");
+                $query->execute();
+                $result = $query->rowCount() ? true : false;
+                if ($result == true) {
+                    $error = $username . " was successfully deleted";
+                    $editAdminArray = array($error);
+                } else {
+                    $error = $username . " deletion unsuccessful";
+                    $editAdminArray = array($error);
+                }
+            }
+        }else{
+            $error = "Selected type not valid";
+            $editAdminArray = array($error);
+        }
+        return $editAdminArray;
     }
 }
 
